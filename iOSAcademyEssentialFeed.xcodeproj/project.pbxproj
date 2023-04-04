@@ -14,6 +14,7 @@
 		530E0F6C29DC37F60099E4CF /* iOSAcademyEssentialFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E0F6B29DC37F60099E4CF /* iOSAcademyEssentialFeedTests.swift */; };
 		530E0F7629DC37F60099E4CF /* iOSAcademyEssentialFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E0F7529DC37F60099E4CF /* iOSAcademyEssentialFeedUITests.swift */; };
 		530E0F7829DC37F60099E4CF /* iOSAcademyEssentialFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E0F7729DC37F60099E4CF /* iOSAcademyEssentialFeedUITestsLaunchTests.swift */; };
+		530E0F8629DC39560099E4CF /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E0F8529DC39560099E4CF /* Singleton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		530E0F7129DC37F60099E4CF /* iOSAcademyEssentialFeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSAcademyEssentialFeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		530E0F7529DC37F60099E4CF /* iOSAcademyEssentialFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSAcademyEssentialFeedUITests.swift; sourceTree = "<group>"; };
 		530E0F7729DC37F60099E4CF /* iOSAcademyEssentialFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSAcademyEssentialFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		530E0F8529DC39560099E4CF /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		530E0F5929DC37F50099E4CF /* iOSAcademyEssentialFeed */ = {
 			isa = PBXGroup;
 			children = (
+				530E0F8429DC380C0099E4CF /* Singleton */,
 				530E0F5A29DC37F50099E4CF /* iOSAcademyEssentialFeedApp.swift */,
 				530E0F5C29DC37F50099E4CF /* ContentView.swift */,
 				530E0F5E29DC37F60099E4CF /* Assets.xcassets */,
@@ -125,6 +128,14 @@
 				530E0F7729DC37F60099E4CF /* iOSAcademyEssentialFeedUITestsLaunchTests.swift */,
 			);
 			path = iOSAcademyEssentialFeedUITests;
+			sourceTree = "<group>";
+		};
+		530E0F8429DC380C0099E4CF /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				530E0F8529DC39560099E4CF /* Singleton.swift */,
+			);
+			path = Singleton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				530E0F5D29DC37F50099E4CF /* ContentView.swift in Sources */,
+				530E0F8629DC39560099E4CF /* Singleton.swift in Sources */,
 				530E0F5B29DC37F50099E4CF /* iOSAcademyEssentialFeedApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
