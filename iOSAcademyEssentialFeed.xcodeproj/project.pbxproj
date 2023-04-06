@@ -15,6 +15,7 @@
 		530E0F7629DC37F60099E4CF /* iOSAcademyEssentialFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E0F7529DC37F60099E4CF /* iOSAcademyEssentialFeedUITests.swift */; };
 		530E0F7829DC37F60099E4CF /* iOSAcademyEssentialFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E0F7729DC37F60099E4CF /* iOSAcademyEssentialFeedUITestsLaunchTests.swift */; };
 		530E0F8629DC39560099E4CF /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E0F8529DC39560099E4CF /* Singleton.swift */; };
+		530E0F8829DC4A8D0099E4CF /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E0F8729DC4A8D0099E4CF /* FeedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		530E0F7529DC37F60099E4CF /* iOSAcademyEssentialFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSAcademyEssentialFeedUITests.swift; sourceTree = "<group>"; };
 		530E0F7729DC37F60099E4CF /* iOSAcademyEssentialFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSAcademyEssentialFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		530E0F8529DC39560099E4CF /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
+		530E0F8729DC4A8D0099E4CF /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				530E0F5C29DC37F50099E4CF /* ContentView.swift */,
 				530E0F5E29DC37F60099E4CF /* Assets.xcassets */,
 				530E0F6029DC37F60099E4CF /* Preview Content */,
+				530E0F8729DC4A8D0099E4CF /* FeedViewController.swift */,
 			);
 			path = iOSAcademyEssentialFeed;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			files = (
 				530E0F5D29DC37F50099E4CF /* ContentView.swift in Sources */,
 				530E0F8629DC39560099E4CF /* Singleton.swift in Sources */,
+				530E0F8829DC4A8D0099E4CF /* FeedViewController.swift in Sources */,
 				530E0F5B29DC37F50099E4CF /* iOSAcademyEssentialFeedApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

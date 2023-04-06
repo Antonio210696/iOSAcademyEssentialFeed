@@ -8,7 +8,6 @@
 import UIKit
 
 struct LoggedInUser { }
-struct FeedItem { }
 
 // API Module
 class ApiClient {
@@ -38,20 +37,6 @@ class LoginViewController: UIViewController {
 	func didTapLoginButton() {
 		login? { user in
 			// show next screen
-		}
-	}
-}
-
-// Feed Module
-
-class FeedViewController: UIViewController {
-	var loadFeed: ((([FeedItem]) -> Void) -> Void)?
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		loadFeed? { loadedItems in
-			
 		}
 	}
 }
