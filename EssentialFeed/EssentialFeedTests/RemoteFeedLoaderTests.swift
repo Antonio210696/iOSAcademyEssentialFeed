@@ -6,24 +6,7 @@
 //
 
 import XCTest
-
-class RemoteFeedLoader {
-	let client: HTTPClient
-	let url: URL
-	
-	init(url: URL, client: HTTPClient) {
-		self.client = client
-		self.url = url
-	}
-	func load() {
-		client.get(from: url)
-	}
-}
-
-protocol HTTPClient {
-	func get(from url: URL)
-}
-
+import EssentialFeed
 
 class RemoteFeedLoaderTests: XCTestCase {
 	
@@ -66,8 +49,13 @@ class RemoteFeedLoaderTests: XCTestCase {
 //
 // lets start with singleton, which is much more concrete. We are not required to have
 // a single instance of HTTPClient, but lets stick with that in a first moment
+
 // if we make the shared a var, we open possibilities for subclassing and spying inside that class
 // HTTPClientSpy allows to move test logic to a separate class that can become the shared instance
-// HTTPClient can be injected and it can be a protocol, so that the feed loader doesn t need to know the concrete type of HTTPClient
+// HTTPClient can be injected and it can be a protocol, so that the feed loader doesn t need to know the concrete type of HTTPClient (tight coupling)
+// by conforming to protocol, we could even avoid creating a type, just extend an existing type to conform to that.
+
 // FeedLoader doesnt need to know the URL, it can be injected. It should not be injected in the load, as the client of the feed loader don t
 // know the URL
+
+// refactoring with tests backing up allows to refactor with confidence.
