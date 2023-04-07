@@ -9,21 +9,29 @@ import XCTest
 
 class RemoteFeedLoader {
 	func load() {
-		HTTPClient.shared.requestedURL = URL(string: "https://a-rul.com")
+		HTTPClient.shared.get(from: URL(string: "https://a-rul.com")!)
 	}
 }
 
 class HTTPClient {
-	static let shared = HTTPClient()
+	static var shared = HTTPClient()
 	
-	private init() { }
+	func get(from url: URL) {}
+}
+
+class HTTPClientSpy: HTTPClient {
+	override func get(from url: URL) {
+		requestedURL = url
+	}
+	
 	var requestedURL: URL?
 }
 
 class RemoteFeedLoaderTests: XCTestCase {
 	
 	func test_init() {
-		let client = HTTPClient.shared
+		let client = HTTPClientSpy()
+		HTTPClient.shared = client
 		_ = RemoteFeedLoader()
 		
 		// we want a collaborator to make the request
@@ -31,7 +39,8 @@ class RemoteFeedLoaderTests: XCTestCase {
 	}
 	
 	func test_load_requestDataFromURL() {
-		let client = HTTPClient.shared
+		let client = HTTPClientSpy()
+		HTTPClient.shared = client
 		let sut = RemoteFeedLoader()
 		
 		sut.load()
@@ -46,3 +55,4 @@ class RemoteFeedLoaderTests: XCTestCase {
 //
 // lets start with singleton, which is much more concrete. We are not required to have
 // a single instance of HTTPClient, but lets stick with that in a first moment
+// if we make the shared a var, we open possibilities for subclassing and spying inside that class
