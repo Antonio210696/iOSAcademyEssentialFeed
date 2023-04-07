@@ -8,19 +8,21 @@
 import XCTest
 
 class RemoteFeedLoader {
+	let client: HTTPClient
+	init(client: HTTPClient) {
+		self.client = client
+	}
 	func load() {
-		HTTPClient.shared.get(from: URL(string: "https://a-rul.com")!)
+		client.get(from: URL(string: "https://a-rul.com")!)
 	}
 }
 
-class HTTPClient {
-	static var shared = HTTPClient()
-	
-	func get(from url: URL) {}
+protocol HTTPClient {
+	func get(from url: URL)
 }
 
 class HTTPClientSpy: HTTPClient {
-	override func get(from url: URL) {
+	func get(from url: URL) {
 		requestedURL = url
 	}
 	
@@ -31,8 +33,7 @@ class RemoteFeedLoaderTests: XCTestCase {
 	
 	func test_init() {
 		let client = HTTPClientSpy()
-		HTTPClient.shared = client
-		_ = RemoteFeedLoader()
+		_ = RemoteFeedLoader(client: client)
 		
 		// we want a collaborator to make the request
 		XCTAssertNil(client.requestedURL)
@@ -40,8 +41,7 @@ class RemoteFeedLoaderTests: XCTestCase {
 	
 	func test_load_requestDataFromURL() {
 		let client = HTTPClientSpy()
-		HTTPClient.shared = client
-		let sut = RemoteFeedLoader()
+		let sut = RemoteFeedLoader(client: client)
 		
 		sut.load()
 		
@@ -56,3 +56,5 @@ class RemoteFeedLoaderTests: XCTestCase {
 // lets start with singleton, which is much more concrete. We are not required to have
 // a single instance of HTTPClient, but lets stick with that in a first moment
 // if we make the shared a var, we open possibilities for subclassing and spying inside that class
+// HTTPClientSpy allows to move test logic to a separate class that can become the shared instance
+// HTTPClient can be injected and it can be a protocol, so that the feed loader doesn t need to know the concrete type of HTTPClient
