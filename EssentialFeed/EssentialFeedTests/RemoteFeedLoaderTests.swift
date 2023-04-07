@@ -38,7 +38,7 @@ class RemoteFeedLoaderTests: XCTestCase {
 	
 	// MARK: - Helpers
 	
-	private func makeSUT(url: URL = URL(string: "https://a-given-url.com")!) -> (sut: RemoteFeedLoader, client: HTTPClientSpy) {
+	private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteFeedLoader, client: HTTPClientSpy) {
 		let client = HTTPClientSpy()
 		let sut = RemoteFeedLoader(url: url, client: client)
 		return (sut, client)
@@ -71,3 +71,6 @@ class RemoteFeedLoaderTests: XCTestCase {
 // refactoring with tests backing up allows to refactor with confidence.
 
 // just asserting a value is not enough, what if that method is called multiple times?
+// we could have a counter to update whenever the spied function is called
+// but better, we could have an array that stores values produced by that method, so that we can test
+// quality, order and quantity.
