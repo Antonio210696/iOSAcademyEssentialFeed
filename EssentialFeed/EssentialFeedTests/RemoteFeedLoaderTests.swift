@@ -9,11 +9,14 @@ import XCTest
 
 class RemoteFeedLoader {
 	let client: HTTPClient
-	init(client: HTTPClient) {
+	let url: URL
+	
+	init(url: URL, client: HTTPClient) {
 		self.client = client
+		self.url = url
 	}
 	func load() {
-		client.get(from: URL(string: "https://a-rul.com")!)
+		client.get(from: url)
 	}
 }
 
@@ -32,20 +35,22 @@ class HTTPClientSpy: HTTPClient {
 class RemoteFeedLoaderTests: XCTestCase {
 	
 	func test_init() {
+		let url = URL(string: "https://a-given-url.com")!
 		let client = HTTPClientSpy()
-		_ = RemoteFeedLoader(client: client)
+		_ = RemoteFeedLoader(url: url, client: client)
 		
 		// we want a collaborator to make the request
 		XCTAssertNil(client.requestedURL)
 	}
 	
 	func test_load_requestDataFromURL() {
+		let url = URL(string: "https://a-given-url.com")!
 		let client = HTTPClientSpy()
-		let sut = RemoteFeedLoader(client: client)
+		let sut = RemoteFeedLoader(url: url, client: client)
 		
 		sut.load()
 		
-		XCTAssertNotNil(client.requestedURL)
+		XCTAssertEqual(client.requestedURL, url)
 	}
 }
 
@@ -58,3 +63,5 @@ class RemoteFeedLoaderTests: XCTestCase {
 // if we make the shared a var, we open possibilities for subclassing and spying inside that class
 // HTTPClientSpy allows to move test logic to a separate class that can become the shared instance
 // HTTPClient can be injected and it can be a protocol, so that the feed loader doesn t need to know the concrete type of HTTPClient
+// FeedLoader doesnt need to know the URL, it can be injected. It should not be injected in the load, as the client of the feed loader don t
+// know the URL
