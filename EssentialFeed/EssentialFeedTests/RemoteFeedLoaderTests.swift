@@ -36,7 +36,7 @@ class RemoteFeedLoaderTests: XCTestCase {
 		XCTAssertEqual(client.requestedURLs, [url, url])
 	}
 	
-	func test_load_deliversErrorOnNon200HTTPResponse() {
+	func test_load_deliversErrorOnClientError() {
 		let (sut, client) = makeSUT()
 		
 		var capturedError = [RemoteFeedLoader.Error]()
@@ -48,7 +48,7 @@ class RemoteFeedLoaderTests: XCTestCase {
 		XCTAssertEqual(capturedError, [.connectivity])
 	}
 	
-	func test_load_deliversErrorOnClientError() {
+	func test_load_deliversErrorOnNon200HTTPResponse() {
 		let (sut, client) = makeSUT()
 		
 		let samples = [199, 201, 300, 400, 500]
