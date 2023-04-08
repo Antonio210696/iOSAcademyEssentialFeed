@@ -20,7 +20,7 @@ public final class RemoteFeedLoader {
 		self.url = url
 	}
 	
-	public func load(completion: @escaping (Error) -> Void = { _ in } ) {
+	public func load(completion: @escaping (Error) -> Void) {
 		// rfl is mapping an http error to a domain error
 		client.get(from: url) { error in
 			completion(.connectivity)
