@@ -39,8 +39,12 @@ public final class RemoteFeedLoader {
 		// rfl is mapping an http error to a domain error
 		client.get(from: url) { result in
 			switch result {
-			case .success:
-				completion(.failure(.invalidData))
+			case let .success(data, _):
+				if let _ = try? JSONSerialization.jsonObject(with: data) {
+					completion(.success([]))
+				} else {
+					completion(.failure(.invalidData))
+				}
 			case .failure:
 				completion(.failure(.connectivity))
 			}
