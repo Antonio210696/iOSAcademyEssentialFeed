@@ -36,6 +36,18 @@ class RemoteFeedLoaderTests: XCTestCase {
 		XCTAssertEqual(client.requestedURLs, [url, url])
 	}
 	
+	func test_load_deliversErrorOnNon200HTTPResponse() {
+		let (sut, client) = makeSUT()
+		
+		var capturedError = [RemoteFeedLoader.Error]()
+		sut.load { capturedError.append($0) }
+		
+		let clientError = NSError(domain: "Test", code: 0)
+		client.complete(with: clientError)
+		
+		XCTAssertEqual(capturedError, [.connectivity])
+	}
+	
 	func test_load_deliversErrorOnClientError() {
 		let (sut, client) = makeSUT()
 		
@@ -52,16 +64,16 @@ class RemoteFeedLoaderTests: XCTestCase {
 		}
 	}
 	
-	func test_load_deliversErrorOnNon200HTTPResponse() {
+	func test_load_deliversErrorOn200HTTPResponseWithInvalidJson()  {
 		let (sut, client) = makeSUT()
 		
 		var capturedError = [RemoteFeedLoader.Error]()
 		sut.load { capturedError.append($0) }
 		
-		let clientError = NSError(domain: "Test", code: 0)
-		client.complete(with: clientError)
-		
-		XCTAssertEqual(capturedError, [.connectivity])
+		let invalidJson = Data("invalid json".utf8)
+		client.complete(withStatusCode: 200, data: invalidJson)
+			
+			XCTAssertEqual(capturedError, [.invalidData])
 	}
 	
 	// MARK: - Helpers
@@ -90,7 +102,7 @@ class RemoteFeedLoaderTests: XCTestCase {
 			messages[index].completion(.failure(error))
 		}
 		
-		func complete(withStatusCode code: Int, at index: Int = 0) {
+		func complete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
 			let response = HTTPURLResponse(
 				url: requestedURLs[index],
 				statusCode: code,
@@ -98,7 +110,7 @@ class RemoteFeedLoaderTests: XCTestCase {
 				headerFields: nil
 			)
 			
-			messages[index].completion(.success(response!))
+			messages[index].completion(.success(data, response!))
 		}
 	}
 }
@@ -134,6 +146,17 @@ class RemoteFeedLoaderTests: XCTestCase {
 
 // when testing, we can store capturedErrors as we did for the produced values in arrays
 
-// we stubbed the client, but it is a spy.
+// we stubbed the client, but it is a spy. Spies are test helpers that capture received messages
 // before making it a spy, the client had to set the error in the "arrange"
 // part of the test, but an error is more of an "act" phase event
+// so we want to capture the urls and completions passed to the client
+
+// spies have to capture messages that pass through them, in this case invocations to the get method of the client
+// in this case, we can combine values passed to the get method in a  "message" tuple
+
+// we handle the case of invalid data, we can do it with HTTPURLResponse
+// at first we give completions two possible optionals.
+// we want to make invalid paths unrepresentable, so we use enum instead of double optionals
+// what if other cases appear, enums is easier to modify
+
+// map the reponse of the client in feedItem
