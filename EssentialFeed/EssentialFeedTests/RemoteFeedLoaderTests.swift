@@ -39,10 +39,11 @@ class RemoteFeedLoaderTests: XCTestCase {
 	func test_load_deliversErrorOnClientError() {
 		let (sut, client) = makeSUT()
 		
-		client.error = NSError(domain: "Test", code: 0)
-		
 		var capturedError = [RemoteFeedLoader.Error]()
-		sut.load { capturedError.append($0)  }
+		sut.load { capturedError.append($0) }
+		
+		let clientError = NSError(domain: "Test", code: 0)
+		client.completions[0](clientError)
 		
 		XCTAssertEqual(capturedError, [.connectivity])
 	}
@@ -58,11 +59,10 @@ class RemoteFeedLoaderTests: XCTestCase {
 	private class HTTPClientSpy: HTTPClient {
 		var requestedURLs = [URL]()
 		var error: Error?
+		var completions = [(Error) -> Void]()
 		
 		func get(from url: URL, completion: @escaping (Error) -> Void) {
-			if let error = error {
-				completion(error)
-			}
+			completions.append(completion)
 			requestedURLs.append(url)
 		}
 	}
@@ -89,3 +89,16 @@ class RemoteFeedLoaderTests: XCTestCase {
 // we could have a counter to update whenever the spied function is called
 // but better, we could have an array that stores values produced by that method, so that we can test
 // quality, order and quantity.
+
+// ========
+// we have to think about client response. when client fails, we want to send an error
+// when the client fails, it is a connectivity issue
+// having defined the error that the feedloader can return, we have to stub the error in the client
+// we send the error from the client to the remote feedloader with a completion inside the client
+// the error in the client is different than the one in the feedloader
+
+// when testing, we can store capturedErrors as we did for the produced values in arrays
+
+// we stubbed the client, but it is a spy.
+// before making it a spy, the client had to set the error in the "arrange"
+// part of the test, but an error is more of an "act" phase event
