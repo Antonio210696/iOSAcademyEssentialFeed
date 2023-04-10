@@ -15,3 +15,5 @@ public enum HTTPClientResult {
 public protocol HTTPClient {
 	func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void)
 }
+
+// end to end tests are a valid solution for testing multiple components
