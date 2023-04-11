@@ -108,7 +108,7 @@ class URLSessionHTTPClientTests: XCTestCase {
 	private func resultErrorFor(data: Data?, response: URLResponse?, error: Error?, file: StaticString = #filePath, line: UInt = #line) -> Error? {
 		URLProtocolStub.stub(data: data, response: response, error: error)
 		
-		var result = resultFor(data: data, response: response, error: error)
+		let result = resultFor(data: data, response: response, error: error)
 		
 		switch result {
 		case .failure(let  error):
@@ -121,7 +121,7 @@ class URLSessionHTTPClientTests: XCTestCase {
 	
 	private func resultValuesFor(data: Data?, response: URLResponse?, error: Error?, file: StaticString = #filePath, line: UInt = #line) -> (data: Data, response: HTTPURLResponse)? {
 		URLProtocolStub.stub(data: data, response: response, error: error)
-		var result = resultFor(data: data, response: response, error: error)
+		let result = resultFor(data: data, response: response, error: error)
 		
 		switch result {
 		case .success(let data, let response):
@@ -214,3 +214,5 @@ class URLSessionHTTPClientTests: XCTestCase {
 // URLProtocol API
 // perform url request, a url loadign System with URL protocol, abstract class. If we register to this class, we can intercept requests. URLProtocol can be used to implement custom protocols, analytics, cache profiling and other stuff
 // We can create a subclass that intercepts our request and return our stubbed responses.
+
+// abstractions in tests allow for easy refactoring, like replacing a type with a type extension
