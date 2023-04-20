@@ -46,6 +46,30 @@ class ValidateFeedCacheUseCaseTests: XCTestCase {
 		XCTAssertEqual(store.receivedMessages, [.retrieve])
 	}
 	
+	func test_validateCache_deletesCacheOnSevenDaysOldCache() {
+		let feed = uniqueImageFeed()
+		let fixedCurrentDate = Date()
+		let sevenDaysOldTimeStamp = fixedCurrentDate.adding(days: -7)
+		let (sut, store) = makeSUT { fixedCurrentDate }
+		
+		sut.validateCache()
+		store.completeRetrieval(with: feed.local, timestamp: sevenDaysOldTimeStamp)
+		
+		XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedFeed])
+	}
+	
+	func test_validateCache_deletesCacheOnMoreThanSevenDaysOldCache() {
+		let feed = uniqueImageFeed()
+		let fixedCurrentDate = Date()
+		let moreThanSevenDaysOldTimeStamp = fixedCurrentDate.adding(days: -7).adding(seconds: -1)
+		let (sut, store) = makeSUT { fixedCurrentDate }
+		
+		sut.validateCache()
+		store.completeRetrieval(with: feed.local, timestamp: moreThanSevenDaysOldTimeStamp)
+		
+		XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedFeed])
+	}
+	
 	// MARK: - Helpers
 	
 	private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #file, line: UInt = #line) -> (sut: LocalFeedLoader, store: FeedStoreSpy) {
