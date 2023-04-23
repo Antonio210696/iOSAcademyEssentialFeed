@@ -206,14 +206,14 @@ class CodableFeedStoreTests: XCTestCase {
 
 	// MARK: - Helpers
 	
-	private func makeSUT(storeURL: URL? = nil, file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
+	private func makeSUT(storeURL: URL? = nil, file: StaticString = #file, line: UInt = #line) -> FeedStore {
 		let sut = CodableFeedStore(storeURL: storeURL ?? testSpecificStoreURL())
 		trackForMemoryLeaks(sut, file: file, line: line)
 		
 		return sut
 	}
 	
-	private func deleteCache(from sut: CodableFeedStore) -> Error? {
+	private func deleteCache(from sut: FeedStore) -> Error? {
 		let exp = expectation(description: "Wait for cache deletion")
 		var deletionError: Error?
 		sut.deleteCachedFeed { receivedDeletionError in
@@ -225,7 +225,7 @@ class CodableFeedStoreTests: XCTestCase {
 		return deletionError
 	}
 	
-	private func expect(_ sut: CodableFeedStore, toRetrieve expectedResult: RetrievalCachedFeedResult, file: StaticString = #file, line: UInt = #line) {
+	private func expect(_ sut: FeedStore, toRetrieve expectedResult: RetrievalCachedFeedResult, file: StaticString = #file, line: UInt = #line) {
 		let exp = expectation(description: "Wait for cache retrieval")
 		
 		sut.retrieve { retrievedResult in
@@ -248,13 +248,13 @@ class CodableFeedStoreTests: XCTestCase {
 		wait(for: [exp], timeout: 1.0)
 	}
 
-	private func expect(_ sut: CodableFeedStore, toRetrieveTwice expectedResult: RetrievalCachedFeedResult, file: StaticString = #file, line: UInt = #line) {
+	private func expect(_ sut: FeedStore, toRetrieveTwice expectedResult: RetrievalCachedFeedResult, file: StaticString = #file, line: UInt = #line) {
 		expect(sut, toRetrieve: expectedResult, file: file, line: line)
 		expect(sut, toRetrieve: expectedResult, file: file, line: line)
 	}
 	
 	@discardableResult
-	private func insert(_ cache: (feed: [LocalFeedImage], timestamp: Date), to sut: CodableFeedStore) -> Error? {
+	private func insert(_ cache: (feed: [LocalFeedImage], timestamp: Date), to sut: FeedStore) -> Error? {
 		let exp = expectation(description: "Wait for cache retrieval")
 		var insertionError: Error?
 		
