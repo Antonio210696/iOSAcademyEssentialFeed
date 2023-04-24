@@ -34,6 +34,13 @@
         "identifier" : "530E0FC529DEE32D0099E4CF",
         "name" : "EssentialFeedTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:EssentialFeed.xcodeproj",
+        "identifier" : "5331F84D29F6F4BB008FB497",
+        "name" : "EssentialFeedCacheIntegrationTests"
+      }
     }
   ],
   "version" : 1
