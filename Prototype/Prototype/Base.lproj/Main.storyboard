@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FeedImageCell" rowHeight="580" id="hUu-pj-cI8">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FeedImageCell" rowHeight="580" id="hUu-pj-cI8" customClass="FeedImageCell" customModule="Prototype" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="393" height="580"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hUu-pj-cI8" id="20N-yU-vIc">
@@ -93,6 +93,12 @@ Or how/when to migrate from UIKit to SwiftUI?</string>
                                         <constraint firstItem="f14-Rf-mq7" firstAttribute="leading" secondItem="20N-yU-vIc" secondAttribute="leadingMargin" id="n9v-FQ-khw"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="CPD-mf-BQD" id="i8K-Qx-YJp"/>
+                                    <outlet property="feedImageView" destination="ZWx-BF-WIf" id="cFS-Ct-soL"/>
+                                    <outlet property="locationContainer" destination="hto-vc-jpM" id="HlK-y1-SEv"/>
+                                    <outlet property="locationLabel" destination="qms-jb-dGa" id="uAq-Bc-ohT"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
