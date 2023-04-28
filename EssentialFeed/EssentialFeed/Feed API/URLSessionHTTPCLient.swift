@@ -26,7 +26,7 @@ public class URLSessionHTTPClient: HTTPClient {
 				} else {
 					throw UnexpectedValuesRepresentation()
 				}
-			}) 
+			})
 		}.resume()
 	}
 }
