@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal struct RemoteFeedItem: Decodable {
+struct RemoteFeedItem: Decodable {
 	public let id: UUID
 	public let description: String?
 	public let location: String?
