@@ -95,6 +95,7 @@ Or how/when to migrate from UIKit to SwiftUI?</string>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="CPD-mf-BQD" id="i8K-Qx-YJp"/>
+                                    <outlet property="feedImageContainer" destination="nkJ-FM-Lvc" id="Are-cd-nbs"/>
                                     <outlet property="feedImageView" destination="ZWx-BF-WIf" id="cFS-Ct-soL"/>
                                     <outlet property="locationContainer" destination="hto-vc-jpM" id="HlK-y1-SEv"/>
                                     <outlet property="locationLabel" destination="qms-jb-dGa" id="uAq-Bc-ohT"/>
