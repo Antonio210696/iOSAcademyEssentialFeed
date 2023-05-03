@@ -115,19 +115,11 @@ Or how/when to migrate from UIKit to SwiftUI?</string>
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
-                            <action selector="refresh" destination="L1i-R2-79M" eventType="valueChanged" id="yPc-6G-edr"/>
+                            <action selector="refresh" destination="6oH-W7-MzW" eventType="valueChanged" id="lQ2-o3-jRT"/>
                         </connections>
                     </refreshControl>
-                    <connections>
-                        <outlet property="refreshController" destination="L1i-R2-79M" id="pYE-xV-m4c"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1eU-9z-raV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <customObject id="L1i-R2-79M" customClass="FeedRefreshViewController" customModule="EssentialFeediOS" customModuleProvider="target">
-                    <connections>
-                        <outlet property="view" destination="v84-eq-280" id="e41-5x-GXH"/>
-                    </connections>
-                </customObject>
             </objects>
             <point key="canvasLocation" x="459" y="-149"/>
         </scene>
