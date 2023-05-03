@@ -109,6 +109,7 @@ Or how/when to migrate from UIKit to SwiftUI?</string>
                         <connections>
                             <outlet property="dataSource" destination="6oH-W7-MzW" id="QJD-Yd-AgB"/>
                             <outlet property="delegate" destination="6oH-W7-MzW" id="Etf-Wx-uU6"/>
+                            <outlet property="prefetchDataSource" destination="6oH-W7-MzW" id="7OQ-gX-dLG"/>
                         </connections>
                     </tableView>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="v84-eq-280">
