@@ -54,6 +54,9 @@ Location</string>
                                                             <buttonConfiguration key="configuration" style="plain" title="􀅈">
                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="60"/>
                                                             </buttonConfiguration>
+                                                            <connections>
+                                                                <action selector="retryButtonTapped" destination="Fhz-z2-nkn" eventType="touchUpInside" id="0PS-vQ-P5I"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -104,6 +107,14 @@ Or how/when to migrate from UIKit to SwiftUI?</string>
                                         <constraint firstItem="TLN-by-0ro" firstAttribute="top" secondItem="L0T-zs-ymU" secondAttribute="topMargin" id="rFF-5z-Y6j"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="qTm-mr-pj6" id="UhC-o8-MId"/>
+                                    <outlet property="feedImageContainer" destination="3RL-54-Qcg" id="swA-vV-q9j"/>
+                                    <outlet property="feedImageRetryButton" destination="IQ9-EL-5fQ" id="MSL-cZ-ftD"/>
+                                    <outlet property="feedImageView" destination="ClV-OV-Yz5" id="VfJ-po-eFx"/>
+                                    <outlet property="locationContainer" destination="rQu-1k-Tm2" id="bTU-td-PhN"/>
+                                    <outlet property="locationLabel" destination="jWj-NC-Lbj" id="lGB-ie-Etx"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
