@@ -59,8 +59,8 @@
 		53982DD92A02B3370017BB9D /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53982DD82A02B3370017BB9D /* Feed.storyboard */; };
 		53982DDB2A02C0900017BB9D /* UITableView+DequeueReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53982DDA2A02C0900017BB9D /* UITableView+DequeueReusable.swift */; };
 		53982DDD2A02C1910017BB9D /* UIImageView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53982DDC2A02C1910017BB9D /* UIImageView+Animations.swift */; };
-		53982DDF2A0394BC0017BB9D /* Feed.strings in Resources */ = {isa = PBXBuildFile; fileRef = 53982DDE2A0394BC0017BB9D /* Feed.strings */; };
 		53982DE12A0397000017BB9D /* FeedViewControllerTests+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53982DE02A0397000017BB9D /* FeedViewControllerTests+Localization.swift */; };
+		53982DE22A0397E40017BB9D /* Feed.strings in Resources */ = {isa = PBXBuildFile; fileRef = 53982DE42A0397E40017BB9D /* Feed.strings */; };
 		539AE6C729EBF1B300C98706 /* CacheFeedUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539AE6C629EBF1B300C98706 /* CacheFeedUseCaseTests.swift */; };
 		53DECA2B29E6A54E00187253 /* EssentialFeedAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DECA2A29E6A54E00187253 /* EssentialFeedAPIEndToEndTests.swift */; };
 		53DECA2C29E6A54E00187253 /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 530E0FBC29DEE32D0099E4CF /* EssentialFeed.framework */; };
@@ -172,8 +172,8 @@
 		53982DD82A02B3370017BB9D /* Feed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
 		53982DDA2A02C0900017BB9D /* UITableView+DequeueReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+DequeueReusable.swift"; sourceTree = "<group>"; };
 		53982DDC2A02C1910017BB9D /* UIImageView+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Animations.swift"; sourceTree = "<group>"; };
-		53982DDE2A0394BC0017BB9D /* Feed.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Feed.strings; sourceTree = "<group>"; };
 		53982DE02A0397000017BB9D /* FeedViewControllerTests+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedViewControllerTests+Localization.swift"; sourceTree = "<group>"; };
+		53982DE32A0397E40017BB9D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Feed.strings; sourceTree = "<group>"; };
 		539AE6C429EB236800C98706 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		539AE6C629EBF1B300C98706 /* CacheFeedUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFeedUseCaseTests.swift; sourceTree = "<group>"; };
 		53DECA2829E6A54E00187253 /* EssentialFeedAPIEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialFeedAPIEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -477,7 +477,7 @@
 				53982DD22A0100680017BB9D /* FeedImagePresenter.swift */,
 				53982DD62A010AD70017BB9D /* FeedLoadingViewModel.swift */,
 				53982DD82A02B3370017BB9D /* Feed.storyboard */,
-				53982DDE2A0394BC0017BB9D /* Feed.strings */,
+				53982DE42A0397E40017BB9D /* Feed.strings */,
 			);
 			path = "Feed Presentation";
 			sourceTree = "<group>";
@@ -718,7 +718,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53982DDF2A0394BC0017BB9D /* Feed.strings in Resources */,
+				53982DE22A0397E40017BB9D /* Feed.strings in Resources */,
 				53982DD92A02B3370017BB9D /* Feed.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -869,6 +869,17 @@
 			targetProxy = 53DECA2D29E6A54E00187253 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		53982DE42A0397E40017BB9D /* Feed.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53982DE32A0397E40017BB9D /* en */,
+			);
+			name = Feed.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		530E0FCE29DEE32D0099E4CF /* Debug */ = {
