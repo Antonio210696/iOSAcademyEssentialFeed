@@ -22,11 +22,15 @@ public struct FeedImageViewModel<Image> {
 		self.location = location
 	}
 	
-	let isLoading: Bool
-	let shouldRetry: Bool
-	let image: Image?
-	let description: String?
-	let location: String?
+	public let isLoading: Bool
+	public let shouldRetry: Bool
+	public let image: Image?
+	public let description: String?
+	public let location: String?
+	
+	public var hasLocation: Bool {
+		return location != nil
+	}
 }
 
 extension FeedImageViewModel: Equatable where Image: Equatable { }

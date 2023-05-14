@@ -23,8 +23,8 @@ final class FeedViewAdapter: FeedView {
 			let view = FeedImageCellController(delegate: adapter)
 			
 			adapter.presenter = FeedImagePresenter(
-				view: WeakRefVirtualProxy(view),
-				imageTransformer: UIImage.init
+				imageView: WeakRefVirtualProxy(view),
+				imageDataTransformer: UIImage.init
 			)
 			
 			return view
