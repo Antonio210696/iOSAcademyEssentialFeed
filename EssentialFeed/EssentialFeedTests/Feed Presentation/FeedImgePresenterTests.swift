@@ -71,12 +71,12 @@ final class FeedImagePresenterTests: XCTestCase {
 		
 		sut.didStartLoadingImageData(for: uniqueImage())
 		
-		XCTAssertEqual(view.messages, [.display(
+		XCTAssertEqual(view.messages, [.display(FeedImageViewModel(
 			isLoading: true,
-			image: nil,
 			shouldRetry: false,
+			image: nil,
 			description: uniqueImage().description,
-			location: uniqueImage().location)
+			location: uniqueImage().location))
 		])
 	}
 	
@@ -85,12 +85,12 @@ final class FeedImagePresenterTests: XCTestCase {
 		
 		sut.didFinishLoadingImageData(with: anyInvalidData(), for: uniqueImage())
 		
-		XCTAssertEqual(view.messages, [.display(
+		XCTAssertEqual(view.messages, [.display(FeedImageViewModel(
 			isLoading: false,
-			image: nil,
 			shouldRetry: true,
+			image: nil,
 			description: uniqueImage().description,
-			location: uniqueImage().location)
+			location: uniqueImage().location))
 		])
 	}
 	
@@ -99,12 +99,12 @@ final class FeedImagePresenterTests: XCTestCase {
 		
 		sut.didFinishLoadingImageData(with: anyNSError(), for: uniqueImage())
 		
-		XCTAssertEqual(view.messages, [.display(
+		XCTAssertEqual(view.messages, [.display(FeedImageViewModel(
 			isLoading: false,
-			image: nil,
 			shouldRetry: true,
+			image: nil,
 			description: uniqueImage().description,
-			location: uniqueImage().location)
+			location: uniqueImage().location))
 		])
 	}
 	
@@ -113,12 +113,12 @@ final class FeedImagePresenterTests: XCTestCase {
 		
 		sut.didFinishLoadingImageData(with: anyData(), for: uniqueImage())
 		
-		XCTAssertEqual(view.messages, [.display(
+		XCTAssertEqual(view.messages, [.display(FeedImageViewModel(
 			isLoading: false,
-			image: FakeImage(data: anyData()),
 			shouldRetry: false,
+			image: FakeImage(data: anyData()),
 			description: uniqueImage().description,
-			location: uniqueImage().location)
+			location: uniqueImage().location))
 		])
 	}
 	
@@ -147,17 +147,11 @@ final class FeedImagePresenterTests: XCTestCase {
 		private(set) var messages: [Message] = []
 		
 		enum Message: Equatable {
-			case display(isLoading: Bool, image: FakeImage?, shouldRetry: Bool, description: String?, location: String?)
+			case display(FeedImageViewModel<FakeImage>)
 		}
 		
 		func display(_ model: FeedImageViewModel<FakeImage>) {
-			messages.append(.display(
-				isLoading: model.isLoading,
-				image: model.image,
-				shouldRetry: model.shouldRetry,
-				description: model.description,
-				location: model.location
-			))
+			messages.append(.display(model))
 		}
 	}
 	
@@ -165,3 +159,5 @@ final class FeedImagePresenterTests: XCTestCase {
 		let data: Data
 	}
 }
+
+extension FeedImageViewModel: Equatable where Image: Equatable { }
