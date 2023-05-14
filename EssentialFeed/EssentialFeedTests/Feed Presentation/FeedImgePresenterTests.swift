@@ -4,9 +4,11 @@ import EssentialFeed
 final class FeedImagePresenter<View: FeedImageView, Image> where Image == View.Image {
 	
 	private let imageView: View
+	private let imageDataTransformer: (Data) -> Image
 	
-	init(imageView: View) {
+	init(imageView: View, imageDataTransformer: @escaping (Data) -> Image) {
 		self.imageView = imageView
+		self.imageDataTransformer = imageDataTransformer
 	}
 	
 	func didStartLoadingImageData(for: FeedImage) {
@@ -14,6 +16,13 @@ final class FeedImagePresenter<View: FeedImageView, Image> where Image == View.I
 			isLoading: true,
 			shouldRetry: false,
 			image: nil))
+	}
+	
+	func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
+		imageView.display(FeedImageViewModel(
+			isLoading: false,
+			shouldRetry: false,
+			image: imageDataTransformer(data)))
 	}
 }
 
@@ -44,13 +53,31 @@ final class FeedImagePresenterTests: XCTestCase {
 		XCTAssertEqual(view.messages, [.display(isLoading: true, image: nil, error: false)])
 	}
 	
+	func test_didFinishLoadingImageData_showsImageWithNoError() {
+		let (sut, view) = makeSUT()
+		
+		sut.didFinishLoadingImageData(with: anyData(), for: uniqueImage())
+		
+		XCTAssertEqual(view.messages, [.display(
+			isLoading: false,
+			image: FakeImage(data: anyData()),
+			error: false)
+		])
+	}
+	
 	// MARK: - Helpers
 	
 	private func makeSUT() -> (sut: FeedImagePresenter<ViewSpy, FakeImage>, view: ViewSpy) {
 		let view = ViewSpy()
-		let sut = FeedImagePresenter(imageView: view)
+		let sut = FeedImagePresenter(imageView: view) { data in
+			FakeImage(data: data)
+		}
 		
 		return (sut, view)
+	}
+	
+	private func anyData() -> Data {
+		return Data("Test data".utf8)
 	}
 	
 	private final class ViewSpy: FeedImageView {
@@ -68,5 +95,7 @@ final class FeedImagePresenterTests: XCTestCase {
 		}
 	}
 	
-	private struct FakeImage: Equatable { }
+	private struct FakeImage: Equatable {
+		let data: Data
+	}
 }
