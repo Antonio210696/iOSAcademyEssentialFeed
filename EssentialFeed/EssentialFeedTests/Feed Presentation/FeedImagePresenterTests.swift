@@ -74,6 +74,9 @@ final class FeedImagePresenterTests: XCTestCase {
 			return FakeImage(data: data)
 		}
 		
+		trackForMemoryLeaks(view)
+		trackForMemoryLeaks(sut)
+		
 		return (sut, view)
 	}
 	
