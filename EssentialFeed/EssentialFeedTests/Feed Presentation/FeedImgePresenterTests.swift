@@ -6,6 +6,8 @@ final class FeedImagePresenter<View: FeedImageView, Image> where Image == View.I
 	private let imageView: View
 	private let imageDataTransformer: (Data) -> Image?
 	
+	private struct InvalidDataImageError: Error { }
+	
 	init(imageView: View, imageDataTransformer: @escaping (Data) -> Image?) {
 		self.imageView = imageView
 		self.imageDataTransformer = imageDataTransformer
@@ -20,13 +22,17 @@ final class FeedImagePresenter<View: FeedImageView, Image> where Image == View.I
 	
 	func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
 		guard let image = imageDataTransformer(data) else {
-			return imageView.display(FeedImageViewModel(isLoading: false, shouldRetry: true, image: nil))
+			return didFinishLoadingImageData(with: InvalidDataImageError(), for: model)
 		}
 		
 		imageView.display(FeedImageViewModel(
 			isLoading: false,
 			shouldRetry: false,
 			image: image))
+	}
+	
+	func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
+		imageView.display(FeedImageViewModel(isLoading: false, shouldRetry: true, image: nil))
 	}
 }
 
@@ -61,6 +67,18 @@ final class FeedImagePresenterTests: XCTestCase {
 		let (sut, view) = makeSUT()
 		
 		sut.didFinishLoadingImageData(with: anyInvalidData(), for: uniqueImage())
+		
+		XCTAssertEqual(view.messages, [.display(
+			isLoading: false,
+			image: nil,
+			shouldRetry: true)
+		])
+	}
+	
+	func test_didFinishLoadingImageData_showsRetryActionOnError() {
+		let (sut, view) = makeSUT()
+		
+		sut.didFinishLoadingImageData(with: anyNSError(), for: uniqueImage())
 		
 		XCTAssertEqual(view.messages, [.display(
 			isLoading: false,
