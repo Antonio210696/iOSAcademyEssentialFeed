@@ -4,9 +4,9 @@ import EssentialFeed
 final class FeedImagePresenter<View: FeedImageView, Image> where Image == View.Image {
 	
 	private let imageView: View
-	private let imageDataTransformer: (Data) -> Image
+	private let imageDataTransformer: (Data) -> Image?
 	
-	init(imageView: View, imageDataTransformer: @escaping (Data) -> Image) {
+	init(imageView: View, imageDataTransformer: @escaping (Data) -> Image?) {
 		self.imageView = imageView
 		self.imageDataTransformer = imageDataTransformer
 	}
@@ -19,10 +19,14 @@ final class FeedImagePresenter<View: FeedImageView, Image> where Image == View.I
 	}
 	
 	func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
+		guard let image = imageDataTransformer(data) else {
+			return imageView.display(FeedImageViewModel(isLoading: false, shouldRetry: true, image: nil))
+		}
+		
 		imageView.display(FeedImageViewModel(
 			isLoading: false,
 			shouldRetry: false,
-			image: imageDataTransformer(data)))
+			image: image))
 	}
 }
 
@@ -50,7 +54,19 @@ final class FeedImagePresenterTests: XCTestCase {
 		
 		sut.didStartLoadingImageData(for: uniqueImage())
 		
-		XCTAssertEqual(view.messages, [.display(isLoading: true, image: nil, error: false)])
+		XCTAssertEqual(view.messages, [.display(isLoading: true, image: nil, shouldRetry: false)])
+	}
+	
+	func test_didFinishLoadingImageData_showsRetryActionOnInvalidData() {
+		let (sut, view) = makeSUT()
+		
+		sut.didFinishLoadingImageData(with: anyInvalidData(), for: uniqueImage())
+		
+		XCTAssertEqual(view.messages, [.display(
+			isLoading: false,
+			image: nil,
+			shouldRetry: true)
+		])
 	}
 	
 	func test_didFinishLoadingImageData_showsImageWithNoError() {
@@ -61,7 +77,7 @@ final class FeedImagePresenterTests: XCTestCase {
 		XCTAssertEqual(view.messages, [.display(
 			isLoading: false,
 			image: FakeImage(data: anyData()),
-			error: false)
+			shouldRetry: false)
 		])
 	}
 	
@@ -70,7 +86,9 @@ final class FeedImagePresenterTests: XCTestCase {
 	private func makeSUT() -> (sut: FeedImagePresenter<ViewSpy, FakeImage>, view: ViewSpy) {
 		let view = ViewSpy()
 		let sut = FeedImagePresenter(imageView: view) { data in
-			FakeImage(data: data)
+			guard data != self.anyInvalidData() else { return nil }
+			
+			return FakeImage(data: data)
 		}
 		
 		return (sut, view)
@@ -80,18 +98,22 @@ final class FeedImagePresenterTests: XCTestCase {
 		return Data("Test data".utf8)
 	}
 	
+	private func anyInvalidData() -> Data {
+		return Data("Test invalid data".utf8)
+	}
+	
 	private final class ViewSpy: FeedImageView {
 		private(set) var messages: [Message] = []
 		
 		enum Message: Equatable {
-			case display(isLoading: Bool, image: FakeImage?, error: Bool)
+			case display(isLoading: Bool, image: FakeImage?, shouldRetry: Bool)
 		}
 		
 		func display(_ model: FeedImageViewModel<FakeImage>) {
 			messages.append(.display(
 				isLoading: model.isLoading,
 				image: model.image,
-				error: model.shouldRetry))
+				shouldRetry: model.shouldRetry))
 		}
 	}
 	
