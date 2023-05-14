@@ -1,64 +1,6 @@
 import XCTest
 import EssentialFeed
 
-final class FeedImagePresenter<View: FeedImageView, Image> where Image == View.Image {
-	
-	private let imageView: View
-	private let imageDataTransformer: (Data) -> Image?
-	
-	private struct InvalidDataImageError: Error { }
-	
-	init(imageView: View, imageDataTransformer: @escaping (Data) -> Image?) {
-		self.imageView = imageView
-		self.imageDataTransformer = imageDataTransformer
-	}
-	
-	func didStartLoadingImageData(for model: FeedImage) {
-		imageView.display(FeedImageViewModel(
-			isLoading: true,
-			shouldRetry: false,
-			image: nil,
-			description: model.description,
-			location: model.location))
-	}
-	
-	func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
-		guard let image = imageDataTransformer(data) else {
-			return didFinishLoadingImageData(with: InvalidDataImageError(), for: model)
-		}
-		
-		imageView.display(FeedImageViewModel(
-			isLoading: false,
-			shouldRetry: false,
-			image: image,
-			description: model.description,
-			location: model.location))
-	}
-	
-	func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
-		imageView.display(FeedImageViewModel(
-			isLoading: false,
-			shouldRetry: true,
-			image: nil,
-			description: model.description,
-			location: model.location))
-	}
-}
-
-struct FeedImageViewModel<Image> {
-	let isLoading: Bool
-	let shouldRetry: Bool
-	let image: Image?
-	let description: String?
-	let location: String?
-}
-
-protocol FeedImageView {
-	associatedtype Image
-	
-	func display(_ model: FeedImageViewModel<Image>)
-}
-
 final class FeedImagePresenterTests: XCTestCase {
 	func test_init_doesNotSendMessagesToView() {
 		let (_, view) = makeSUT()
@@ -159,5 +101,3 @@ final class FeedImagePresenterTests: XCTestCase {
 		let data: Data
 	}
 }
-
-extension FeedImageViewModel: Equatable where Image: Equatable { }
