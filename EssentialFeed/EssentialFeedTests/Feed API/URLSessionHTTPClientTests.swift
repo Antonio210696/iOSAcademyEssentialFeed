@@ -97,10 +97,6 @@ class URLSessionHTTPClientTests: XCTestCase {
 		return HTTPURLResponse(url: anyURL(), statusCode: 200, httpVersion: nil, headerFields: nil)!
 	}
 	
-	private func anyData() -> Data {
-		return Data("any data".utf8)
-	}
-	
 	private func resultErrorFor(_ values: (data: Data?, response: URLResponse?, error: Error?)? = nil, taskHandler: (HTTPClientTask) -> Void = { _ in }, file: StaticString = #filePath, line: UInt = #line) -> Error? {
 		let result = resultFor(values, taskHandler: taskHandler, file: file, line: line)
 		
