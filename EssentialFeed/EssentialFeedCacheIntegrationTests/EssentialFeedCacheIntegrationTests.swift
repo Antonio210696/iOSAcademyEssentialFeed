@@ -62,7 +62,7 @@ final class EssentialFeedCacheIntegrationTests: XCTestCase {
 		let feed = uniqueImageFeed().model
 		
 		save(feed, with: feedLoaderToPerformSave)
-		validateCache(with: feedLoaderToPerformSave)
+		validateCache(with: feedLoaderToPerformValidation)
 		
 		expect(feedLoaderToPerformSave, toLoad: feed)
 	}
