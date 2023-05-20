@@ -43,6 +43,20 @@ class CacheFeedIMageDataUseCaseTests: XCTestCase {
 		})
 	}
 	
+	func test_saveImageDataFromURL_doesNOtDeliverResultAfterSUTInstanceHasBeenDeallocated() {
+		let store = FeedImageDataStoreSpy()
+		var sut: LocalFeedImageDataLoader? = LocalFeedImageDataLoader(store: store)
+		
+		var received = [LocalFeedImageDataLoader.SaveResult]()
+		
+		sut?.save(anyData(), for: anyURL()) { received.append($0) }
+		
+		sut = nil
+		store.completeInsertionSuccessfully()
+		
+		XCTAssertTrue(received.isEmpty, "Expected no received result after instance has been deallocated")
+	}
+	
 	private func makeSUT(currentData: @escaping () -> Date = Date.init, file: StaticString = #file, line: UInt = #line) -> (sut: LocalFeedImageDataLoader, store: FeedImageDataStoreSpy) {
 		let store = FeedImageDataStoreSpy()
 		let sut = LocalFeedImageDataLoader(store: store)
