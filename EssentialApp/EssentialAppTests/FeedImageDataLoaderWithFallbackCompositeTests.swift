@@ -45,21 +45,16 @@ class FeedImageDataLoaderWithFallbackComposite: FeedImageDataLoader {
 final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
 	
 	func test_init_doesNotLoadImageData() {
-		let primaryLoader = ImageLoaderSpy()
-		let fallbackLoader = ImageLoaderSpy()
-		_ = makeSUT(primaryLoader: primaryLoader, fallbackLoader: fallbackLoader)
+		let (_, primaryLoader, fallbackLoader) = makeSUT()
 		
 		XCTAssertTrue(primaryLoader.messages.isEmpty)
 		XCTAssertTrue(fallbackLoader.messages.isEmpty)
 	}
 	
 	func test_loadImageData_deliversPrimaryImageDataOnPrimaryLoaderSuccess() {
-		let primaryLoader = ImageLoaderSpy()
-		let fallbackLoader = ImageLoaderSpy()
 		let primaryData = Data("primary".utf8)
 		let url = anyURL()
-		
-		let sut = makeSUT(primaryLoader: primaryLoader, fallbackLoader: fallbackLoader)
+		let (sut, primaryLoader, fallbackLoader) = makeSUT()
 		
 		expect(sut, for: url, toCompleteWith: .success(primaryData), when: {
 			primaryLoader.completeSuccessfully(with: primaryData)
@@ -69,12 +64,9 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
 	}
 	
 	func test_loadImageData_deliversFallbackImageDataOnPrimaryLoaderFailure() {
-		let primaryLoader = ImageLoaderSpy()
-		let fallbackLoader = ImageLoaderSpy()
 		let fallbackData = Data("fallback".utf8)
 		let url = anyURL()
-		
-		let sut = makeSUT(primaryLoader: primaryLoader, fallbackLoader: fallbackLoader)
+		let (sut, primaryLoader, fallbackLoader) = makeSUT()
 		
 		expect(sut, for: url, toCompleteWith: .success(fallbackData), when: {
 			primaryLoader.complete(with: anyNSError())
@@ -85,11 +77,8 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
 	}
 	
 	func test_loadImageData_deliversErrorIfOnBothLoadersFailure() {
-		let primaryLoader = ImageLoaderSpy()
-		let fallbackLoader = ImageLoaderSpy()
 		let url = anyURL()
-		
-		let sut = makeSUT(primaryLoader: primaryLoader, fallbackLoader: fallbackLoader)
+		let (sut, primaryLoader, fallbackLoader) = makeSUT()
 		
 		expect(sut, for: url, toCompleteWith: .failure(anyNSError()), when: {
 			primaryLoader.complete(with: anyNSError())
@@ -100,11 +89,8 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
 	}
 	
 	func test_cancelLoadImageData_cancelsPrimaryLoaderTask() {
-		let primaryLoader = ImageLoaderSpy()
-		let fallbackLoader = ImageLoaderSpy()
 		let url = anyURL()
-		
-		let sut = makeSUT(primaryLoader: primaryLoader, fallbackLoader: fallbackLoader)
+		let (sut, primaryLoader, fallbackLoader) = makeSUT()
 		
 		let task = sut.loadImageData(from: url) { _ in }
 		task.cancel()
@@ -114,11 +100,8 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
 	}
 	
 	func test_cancelLoadImageData_cancelsFallbackLoaderTaskOnPrimaryLoaderFailure() {
-		let primaryLoader = ImageLoaderSpy()
-		let fallbackLoader = ImageLoaderSpy()
 		let url = anyURL()
-		
-		let sut = makeSUT(primaryLoader: primaryLoader, fallbackLoader: fallbackLoader)
+		let (sut, primaryLoader, fallbackLoader) = makeSUT()
 		
 		let task = sut.loadImageData(from: url) { _ in }
 		primaryLoader.complete(with: anyNSError())
@@ -130,12 +113,14 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
 	
 	// MARK: - Helpers
 	
-	private func makeSUT(primaryLoader: ImageLoaderSpy, fallbackLoader: ImageLoaderSpy) -> FeedImageDataLoader {
-		let sut = FeedImageDataLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
-		trackForMemoryLeaks(primaryLoader)
-		trackForMemoryLeaks(fallbackLoader)
+	private func makeSUT() -> (sut: FeedImageDataLoader, primaryLoader: ImageLoaderSpy, fallbackLoader: ImageLoaderSpy) {
+		let primary = ImageLoaderSpy()
+		let fallback = ImageLoaderSpy()
+		let sut = FeedImageDataLoaderWithFallbackComposite(primary: primary, fallback: fallback)
+		trackForMemoryLeaks(primary)
+		trackForMemoryLeaks(fallback)
 		trackForMemoryLeaks(sut)
-		return sut
+		return (sut, primary, fallback)
 	}
 	
 	private func expect(_ sut: FeedImageDataLoader, for url: URL, toCompleteWith expectedResult: FeedImageDataLoader.Result, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
