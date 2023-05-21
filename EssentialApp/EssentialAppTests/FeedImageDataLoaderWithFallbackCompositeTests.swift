@@ -31,6 +31,16 @@ class FeedImageDataLoaderWithFallbackComposite: FeedImageDataLoader {
 }
 
 final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
+	
+	func test_init_doesNotLoadImageData() {
+		let primaryLoader = ImageLoaderSpy()
+		let fallbackLoader = ImageLoaderSpy()
+		_ = makeSUT(primaryLoader: primaryLoader, fallbackLoader: fallbackLoader)
+		
+		XCTAssertTrue(primaryLoader.messages.isEmpty)
+		XCTAssertTrue(fallbackLoader.messages.isEmpty)
+	}
+	
 	func test_loadImageData_deliversPrimaryImageDataOnPrimaryLoaderSuccess() {
 		let primaryLoader = ImageLoaderSpy()
 		let fallbackLoader = ImageLoaderSpy()
