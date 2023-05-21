@@ -11,6 +11,7 @@
 		53AAB17E2A10EEDF004A293D /* EssentialFeediOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53AAB17C2A10EEDF004A293D /* EssentialFeediOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53AAB1812A10EEE1004A293D /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53AAB1802A10EEE1004A293D /* EssentialFeed.framework */; };
 		53AAB1822A10EEE1004A293D /* EssentialFeed.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53AAB1802A10EEE1004A293D /* EssentialFeed.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53D273A62A1A2673003F5300 /* FeedLoaderWithFallbackCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D273A52A1A2673003F5300 /* FeedLoaderWithFallbackCompositeTests.swift */; };
 		53EAFF6E2A10E20900F640BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EAFF6D2A10E20900F640BC /* AppDelegate.swift */; };
 		53EAFF702A10E20900F640BC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EAFF6F2A10E20900F640BC /* SceneDelegate.swift */; };
 		53EAFF722A10E20900F640BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EAFF712A10E20900F640BC /* ViewController.swift */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		53AAB17C2A10EEDF004A293D /* EssentialFeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EssentialFeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53AAB1802A10EEE1004A293D /* EssentialFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EssentialFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53D273A52A1A2673003F5300 /* FeedLoaderWithFallbackCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderWithFallbackCompositeTests.swift; sourceTree = "<group>"; };
 		53EAFF6A2A10E20900F640BC /* EssentialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EssentialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53EAFF6D2A10E20900F640BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		53EAFF6F2A10E20900F640BC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				53EAFF842A10E20B00F640BC /* EssentialAppTests.swift */,
+				53D273A52A1A2673003F5300 /* FeedLoaderWithFallbackCompositeTests.swift */,
 			);
 			path = EssentialAppTests;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53D273A62A1A2673003F5300 /* FeedLoaderWithFallbackCompositeTests.swift in Sources */,
 				53EAFF852A10E20B00F640BC /* EssentialAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
