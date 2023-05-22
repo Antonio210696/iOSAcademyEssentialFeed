@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		536D0FAF2A1BF59E00D60260 /* FeedLoaderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D0FAE2A1BF59E00D60260 /* FeedLoaderStub.swift */; };
+		536D0FB12A1BF98C00D60260 /* XCTestCase+FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D0FB02A1BF98C00D60260 /* XCTestCase+FeedLoader.swift */; };
 		53AAB17D2A10EEDF004A293D /* EssentialFeediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53AAB17C2A10EEDF004A293D /* EssentialFeediOS.framework */; };
 		53AAB17E2A10EEDF004A293D /* EssentialFeediOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53AAB17C2A10EEDF004A293D /* EssentialFeediOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53AAB1812A10EEE1004A293D /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53AAB1802A10EEE1004A293D /* EssentialFeed.framework */; };
@@ -63,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		536D0FAE2A1BF59E00D60260 /* FeedLoaderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderStub.swift; sourceTree = "<group>"; };
+		536D0FB02A1BF98C00D60260 /* XCTestCase+FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FeedLoader.swift"; sourceTree = "<group>"; };
 		53AAB17C2A10EEDF004A293D /* EssentialFeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EssentialFeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53AAB1802A10EEE1004A293D /* EssentialFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EssentialFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D273A52A1A2673003F5300 /* FeedLoaderWithFallbackCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderWithFallbackCompositeTests.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			children = (
 				53D273AC2A1A7871003F5300 /* XCTestCase+Helpers.swift */,
 				536D0FAE2A1BF59E00D60260 /* FeedLoaderStub.swift */,
+				536D0FB02A1BF98C00D60260 /* XCTestCase+FeedLoader.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53D273AD2A1A7871003F5300 /* XCTestCase+Helpers.swift in Sources */,
+				536D0FB12A1BF98C00D60260 /* XCTestCase+FeedLoader.swift in Sources */,
 				53D273A62A1A2673003F5300 /* FeedLoaderWithFallbackCompositeTests.swift in Sources */,
 				53EAFF852A10E20B00F640BC /* EssentialAppTests.swift in Sources */,
 				53D273B22A1BF35F003F5300 /* FeedLoaderCacheDecoratorTests.swift in Sources */,
