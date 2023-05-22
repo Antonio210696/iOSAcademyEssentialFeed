@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import EssentialFeed
 
 extension XCTestCase {
 	func anyURL() -> URL {
@@ -20,5 +21,9 @@ extension XCTestCase {
 		addTeardownBlock { [weak instance] in
 			XCTAssertNil(instance, "Instance should have been deallocated. Potential memory leak", file: file, line: line)
 		}
+	}
+	
+	func uniqueFeed() -> [FeedImage] {
+		return [FeedImage(id: UUID(), description: "any", location: "any", url: URL(string: "http://any-url.com")!)]
 	}
 }
