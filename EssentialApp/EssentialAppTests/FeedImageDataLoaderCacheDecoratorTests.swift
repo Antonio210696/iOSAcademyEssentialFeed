@@ -16,9 +16,10 @@ final class FeedImageDataLoaderCacheDecorator {
 
 final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 	func test_init_doesSendAnyMessage() {
-		let (_, cacheSpy, _) = makeSUT()
+		let (_, cacheSpy, loaderSpy) = makeSUT()
 		
 		XCTAssertTrue(cacheSpy.messages.isEmpty)
+		XCTAssertTrue(loaderSpy.messages.isEmpty)
 	}
 	
 	// MARK: - Helpers
