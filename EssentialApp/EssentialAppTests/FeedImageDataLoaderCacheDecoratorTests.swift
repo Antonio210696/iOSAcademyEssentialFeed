@@ -16,15 +16,23 @@ final class FeedImageDataLoaderCacheDecorator {
 
 final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 	func test_init_doesSendAnyMessage() {
-		let cacheSpy = ImageCacheSpy()
-		let loaderSpy = FeedImageDataLoaderSpy()
-		_ = FeedImageDataLoaderCacheDecorator(decoratee: loaderSpy, cache: cacheSpy)
+		let (_, cacheSpy, _) = makeSUT()
 		
 		XCTAssertTrue(cacheSpy.messages.isEmpty)
 	}
 	
 	// MARK: - Helpers
 	
+	private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedImageDataLoaderCacheDecorator, cacheSpy: ImageCacheSpy, loaderSpy: FeedImageDataLoaderSpy) {
+		let cacheSpy = ImageCacheSpy()
+		let loaderSpy = FeedImageDataLoaderSpy()
+		let sut = FeedImageDataLoaderCacheDecorator(decoratee: loaderSpy, cache: cacheSpy)
+		trackForMemoryLeaks(cacheSpy)
+		trackForMemoryLeaks(loaderSpy)
+		trackForMemoryLeaks(sut)
+		
+		return (sut, cacheSpy, loaderSpy)
+	}
 	private class FeedImageDataLoaderSpy: FeedImageDataLoader {
 		var messages: [Message] = []
 		
