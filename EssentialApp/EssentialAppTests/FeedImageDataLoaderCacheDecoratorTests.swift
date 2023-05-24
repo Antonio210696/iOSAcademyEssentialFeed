@@ -18,18 +18,24 @@ final class FeedImageDataLoaderCacheDecorator: FeedImageDataLoader {
 	private let decoratee: FeedImageDataLoader
 	private let cache: FeedImageDataCache
 	
-	private struct Task: FeedImageDataLoaderTask {
-		func cancel() { }
+	private final class Task: FeedImageDataLoaderTask {
+		var wrapped: FeedImageDataLoaderTask?
+		
+		func cancel() {
+			wrapped?.cancel()
+		}
 	}
 	
 	func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
-		
-		return decoratee.loadImageData(from: url) { [weak self] result in
+		let task = Task()
+		task.wrapped = decoratee.loadImageData(from: url) { [weak self] result in
 			if let data = try? result.get() {
 				self?.cache.save(data, for: url) { _ in }
 			}
 			completion(result)
 		}
+		
+		return task
 	}
 	
 	init(decoratee: FeedImageDataLoader, cache: FeedImageDataCache) {
@@ -69,6 +75,18 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 		XCTAssertEqual(cacheSpy.messages, [.save(image: feedImage, url: url)])
 	}
 	
+	func test_loadImageData_cancelsTaskOnDecoratee() {
+		let (sut, _, loaderSpy) = makeSUT()
+		let feedImage = Data("Expected image".utf8)
+		let url = anyURL()
+		
+		let task = sut.loadImageData(from: url) { _ in }
+		task.cancel()
+		loaderSpy.completeSuccessfully(with: feedImage)
+		
+		XCTAssertEqual(loaderSpy.cancelledURLs, [url])
+	}
+	
 	// MARK: - Helpers
 	
 	private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedImageDataLoaderCacheDecorator, cacheSpy: ImageCacheSpy, loaderSpy: FeedImageDataLoaderSpy) {
@@ -84,14 +102,16 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 	private class FeedImageDataLoaderSpy: FeedImageDataLoader {
 		typealias Completion = (FeedImageDataLoader.Result) -> Void
 		var completions: [Completion] = []
+		var cancelledURLs = [URL]()
 		
 		private struct Task: FeedImageDataLoaderTask {
-			func cancel() { }
+			let callback: () -> Void
+			func cancel() { callback() }
 		}
 		
 		func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
 			completions.append(completion)
-			return Task()
+			return Task() { self.cancelledURLs.append(url) }
 		}
 		
 		func completeSuccessfully(with image: Data, at index: Int = 0) {
