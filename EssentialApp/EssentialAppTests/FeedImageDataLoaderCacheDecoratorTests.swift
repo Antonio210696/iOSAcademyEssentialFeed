@@ -10,8 +10,19 @@ import EssentialFeed
 
 protocol FeedImageDataCache { }
 
-final class FeedImageDataLoaderCacheDecorator {
-	init(decoratee: FeedImageDataLoader, cache: FeedImageDataCache) { }
+final class FeedImageDataLoaderCacheDecorator: FeedImageDataLoader {
+	private let decoratee: FeedImageDataLoader
+	private struct Task: FeedImageDataLoaderTask {
+		func cancel() { }
+	}
+	
+	func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
+		return decoratee.loadImageData(from: url, completion: completion)
+	}
+	
+	init(decoratee: FeedImageDataLoader, cache: FeedImageDataCache) {
+		self.decoratee = decoratee
+	}
 }
 
 final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
@@ -19,7 +30,19 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 		let (_, cacheSpy, loaderSpy) = makeSUT()
 		
 		XCTAssertTrue(cacheSpy.messages.isEmpty)
-		XCTAssertTrue(loaderSpy.messages.isEmpty)
+		XCTAssertTrue(loaderSpy.completions.isEmpty)
+	}
+	
+	func test_loadImageData_deliversImageOnSuccessfulLoad() {
+		let (sut, _, loaderSpy) = makeSUT()
+		let feedImage = Data("Expected image".utf8)
+		let url = anyURL()
+		
+		var receivedImage: Data?
+		_ = sut.loadImageData(from: url) { receivedImage = try? $0.get() }
+		loaderSpy.completeSuccessfully(with: feedImage)
+		
+		XCTAssertEqual(receivedImage, feedImage)
 	}
 	
 	// MARK: - Helpers
@@ -35,16 +58,20 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 		return (sut, cacheSpy, loaderSpy)
 	}
 	private class FeedImageDataLoaderSpy: FeedImageDataLoader {
-		var messages: [Message] = []
-		
-		enum Message { }
+		typealias Completion = (FeedImageDataLoader.Result) -> Void
+		var completions: [Completion] = []
 		
 		private struct Task: FeedImageDataLoaderTask {
 			func cancel() { }
 		}
 		
 		func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
+			completions.append(completion)
 			return Task()
+		}
+		
+		func completeSuccessfully(with image: Data, at index: Int = 0) {
+			completions[index](.success(image))
 		}
 	}
 	
