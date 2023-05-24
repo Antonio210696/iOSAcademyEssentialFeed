@@ -87,6 +87,21 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 		XCTAssertEqual(loaderSpy.cancelledURLs, [url])
 	}
 	
+	func test_loadImageData_deliversErrorOnLoadFailure() {
+		let (sut, _, loaderSpy) = makeSUT()
+		let url = anyURL()
+		let expectedError = anyNSError()
+		
+		var receivedError: NSError?
+		_ = sut.loadImageData(from: url) { _ = $0.mapError {
+			receivedError = $0 as NSError
+			return $0
+		}}
+		
+		loaderSpy.complete(with: expectedError)
+		XCTAssertEqual(receivedError, expectedError)
+	}
+	
 	// MARK: - Helpers
 	
 	private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedImageDataLoaderCacheDecorator, cacheSpy: ImageCacheSpy, loaderSpy: FeedImageDataLoaderSpy) {
@@ -99,6 +114,7 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 		
 		return (sut, cacheSpy, loaderSpy)
 	}
+	
 	private class FeedImageDataLoaderSpy: FeedImageDataLoader {
 		typealias Completion = (FeedImageDataLoader.Result) -> Void
 		var completions: [Completion] = []
@@ -116,6 +132,10 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 		
 		func completeSuccessfully(with image: Data, at index: Int = 0) {
 			completions[index](.success(image))
+		}
+		
+		func complete(with error: NSError, at index: Int = 0) {
+			completions[index](.failure(error))
 		}
 	}
 	
