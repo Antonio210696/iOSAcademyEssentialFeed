@@ -8,20 +8,33 @@
 import XCTest
 import EssentialFeed
 
-protocol FeedImageDataCache { }
+protocol FeedImageDataCache {
+	typealias Result = Swift.Result<Void, Swift.Error>
+	
+	func save(_ data: Data, for url: URL, completion: @escaping (Result) -> Void)
+}
 
 final class FeedImageDataLoaderCacheDecorator: FeedImageDataLoader {
 	private let decoratee: FeedImageDataLoader
+	private let cache: FeedImageDataCache
+	
 	private struct Task: FeedImageDataLoaderTask {
 		func cancel() { }
 	}
 	
 	func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
-		return decoratee.loadImageData(from: url, completion: completion)
+		
+		return decoratee.loadImageData(from: url) { [weak self] result in
+			if let data = try? result.get() {
+				self?.cache.save(data, for: url) { _ in }
+			}
+			completion(result)
+		}
 	}
 	
 	init(decoratee: FeedImageDataLoader, cache: FeedImageDataCache) {
 		self.decoratee = decoratee
+		self.cache = cache
 	}
 }
 
@@ -43,6 +56,17 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 		loaderSpy.completeSuccessfully(with: feedImage)
 		
 		XCTAssertEqual(receivedImage, feedImage)
+	}
+	
+	func test_loadImageData_cachesImageOnSuccessfulLoad() {
+		let (sut, cacheSpy, loaderSpy) = makeSUT()
+		let feedImage = Data("Expected image".utf8)
+		let url = anyURL()
+		
+		_ = sut.loadImageData(from: url) { _ in }
+		loaderSpy.completeSuccessfully(with: feedImage)
+		
+		XCTAssertEqual(cacheSpy.messages, [.save(image: feedImage, url: url)])
 	}
 	
 	// MARK: - Helpers
@@ -78,6 +102,12 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 	private class ImageCacheSpy: FeedImageDataCache {
 		var messages: [Message] = []
 		
-		enum Message { }
+		enum Message: Equatable {
+			case save(image: Data, url: URL)
+		}
+		
+		func save(_ data: Data, for url: URL, completion: @escaping (FeedImageDataCache.Result) -> Void) {
+			messages.append(.save(image: data, url: url))
+		}
 	}
 }
