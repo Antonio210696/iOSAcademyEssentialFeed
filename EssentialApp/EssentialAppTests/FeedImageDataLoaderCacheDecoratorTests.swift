@@ -44,7 +44,7 @@ final class FeedImageDataLoaderCacheDecorator: FeedImageDataLoader {
 	}
 }
 
-final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
+final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase, FeedImageDataLoaderTestCase {
 	func test_init_doesSendAnyMessage() {
 		let cacheSpy = ImageCacheSpy()
 		let (_, loaderSpy) = makeSUT(cache: cacheSpy)
@@ -113,27 +113,6 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 		trackForMemoryLeaks(sut)
 		
 		return (sut, loaderSpy)
-	}
-	
-	private func expect(_ sut: FeedImageDataLoader, for url: URL, toCompleteWith expectedResult: FeedImageDataLoader.Result, when action: () -> Void, file: StaticString = #file, line: UInt = 0) {
-		let exp = expectation(description: "Wait for load to complete")
-		_ = sut.loadImageData(from: url) { receivedResult in
-			switch (receivedResult, expectedResult) {
-			case let (.success(receivedImage), .success(expectedImage)):
-				XCTAssertEqual(receivedImage, expectedImage, "Expected to receive \(expectedImage), got \(receivedImage) instead", file: file, line: line)
-				
-			case let (.failure(receivedError as NSError), .failure(expectedError as NSError)):
-				XCTAssertEqual(receivedError, expectedError, "Expected to receive error \(expectedError), got \(receivedError) instead", file: file, line: line)
-				
-			default:
-				XCTFail("Expected result \(expectedResult), got \(receivedResult), instead", file: file, line: line)
-			}
-			
-			exp.fulfill()
-		}
-		
-		action()
-		wait(for: [exp], timeout: 1.0)
 	}
 	
 	private class ImageCacheSpy: FeedImageDataCache {
