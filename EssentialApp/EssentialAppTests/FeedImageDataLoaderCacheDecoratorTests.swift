@@ -36,18 +36,6 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase, FeedImageDataLoa
 		})
 	}
 	
-	func test_loadImageData_cachesImageOnSuccessfulLoad() {
-		let cacheSpy = ImageCacheSpy()
-		let (sut, loaderSpy) = makeSUT(cache: cacheSpy)
-		let feedImage = Data("Expected image".utf8)
-		let url = anyURL()
-		
-		_ = sut.loadImageData(from: url) { _ in }
-		loaderSpy.completeSuccessfully(with: feedImage)
-		
-		XCTAssertEqual(cacheSpy.messages, [.save(image: feedImage, url: url)])
-	}
-	
 	func test_loadImageData_cancelsTaskOnDecoratee() {
 		let (sut, loaderSpy) = makeSUT()
 		let url = anyURL()
@@ -66,6 +54,29 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase, FeedImageDataLoa
 		expect(sut, for: url, toCompleteWith: .failure(expectedError), when: {
 			loaderSpy.complete(with: expectedError)
 		})
+	}
+	
+	func test_loadImageData_cachesImageOnSuccessfulLoad() {
+		let cacheSpy = ImageCacheSpy()
+		let (sut, loaderSpy) = makeSUT(cache: cacheSpy)
+		let feedImage = Data("Expected image".utf8)
+		let url = anyURL()
+		
+		_ = sut.loadImageData(from: url) { _ in }
+		loaderSpy.completeSuccessfully(with: feedImage)
+		
+		XCTAssertEqual(cacheSpy.messages, [.save(image: feedImage, url: url)])
+	}
+	
+	func test_loadImageData_doesNotCacheImageOnLoaderFailure() {
+		let cacheSpy = ImageCacheSpy()
+		let (sut, loaderSpy) = makeSUT(cache: cacheSpy)
+		let url = anyURL()
+		
+		_ = sut.loadImageData(from: url) { _ in }
+		loaderSpy.complete(with: anyNSError())
+		
+		XCTAssertTrue(cacheSpy.messages.isEmpty)
 	}
 	
 	// MARK: - Helpers
