@@ -92,7 +92,6 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 		
 		let task = sut.loadImageData(from: url) { _ in }
 		task.cancel()
-		loaderSpy.completeSuccessfully(with: feedImage)
 		
 		XCTAssertEqual(loaderSpy.cancelledURLs, [url])
 	}
