@@ -14,8 +14,8 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
 	func test_init_doesNotLoadImageData() {
 		let (_, primaryLoader, fallbackLoader) = makeSUT()
 		
-		XCTAssertTrue(primaryLoader.messages.isEmpty)
-		XCTAssertTrue(fallbackLoader.messages.isEmpty)
+		XCTAssertTrue(primaryLoader.loadedURLs.isEmpty)
+		XCTAssertTrue(fallbackLoader.loadedURLs.isEmpty)
 	}
 	
 	func test_loadImageData_deliversPrimaryImageDataOnPrimaryLoaderSuccess() {
@@ -80,9 +80,9 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
 	
 	// MARK: - Helpers
 	
-	private func makeSUT() -> (sut: FeedImageDataLoader, primaryLoader: ImageLoaderSpy, fallbackLoader: ImageLoaderSpy) {
-		let primary = ImageLoaderSpy()
-		let fallback = ImageLoaderSpy()
+	private func makeSUT() -> (sut: FeedImageDataLoader, primaryLoader: FeedImageDataLoaderSpy, fallbackLoader: FeedImageDataLoaderSpy) {
+		let primary = FeedImageDataLoaderSpy()
+		let fallback = FeedImageDataLoaderSpy()
 		let sut = FeedImageDataLoaderWithFallbackComposite(primary: primary, fallback: fallback)
 		trackForMemoryLeaks(primary)
 		trackForMemoryLeaks(fallback)
@@ -108,41 +108,5 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
 		
 		action()
 		wait(for: [exp], timeout: 1.0)
-	}
-	
-	private class ImageLoaderSpy: FeedImageDataLoader {
-		typealias LoadCompletions = (FeedImageDataLoader.Result) -> Void
-		var messages = [(url: URL, completion: LoadCompletions)]()
-		var cancelledURLs: [URL] = []
-		
-		var loadedURLs: [URL] {
-			messages.map { $0.url }
-		}
-		
-		private var completions: [LoadCompletions] {
-			messages.map { $0.completion }
-		}
-		
-		private struct TaskWrapper: FeedImageDataLoaderTask {
-			var wrapped: Task<Void, Error>?
-			let callback: () -> Void
-			
-			func cancel() { callback() }
-		}
-		
-		func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
-			messages.append((url: url, completion: completion))
-			return TaskWrapper() { [weak self] in
-				self?.cancelledURLs.append(url)
-			}
-		}
-		
-		func complete(with error: Error, at index: Int = 0) {
-			completions[index](.failure(error))
-		}
-		
-		func completeSuccessfully(with data: Data, at index: Int = 0) {
-			completions[index](.success(data))
-		}
 	}
 }
