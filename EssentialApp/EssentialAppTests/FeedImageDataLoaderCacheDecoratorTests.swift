@@ -87,7 +87,6 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 	
 	func test_loadImageData_cancelsTaskOnDecoratee() {
 		let (sut, loaderSpy) = makeSUT()
-		let feedImage = Data("Expected image".utf8)
 		let url = anyURL()
 		
 		let task = sut.loadImageData(from: url) { _ in }
@@ -106,8 +105,8 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 			receivedError = $0 as NSError
 			return $0
 		}}
-		
 		loaderSpy.complete(with: expectedError)
+		
 		XCTAssertEqual(receivedError, expectedError)
 	}
 	
