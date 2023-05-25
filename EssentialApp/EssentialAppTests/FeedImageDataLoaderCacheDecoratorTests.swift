@@ -65,12 +65,10 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 		let (sut, loaderSpy) = makeSUT()
 		let feedImage = Data("Expected image".utf8)
 		let url = anyURL()
-		
-		var receivedImage: Data?
-		_ = sut.loadImageData(from: url) { receivedImage = try? $0.get() }
-		loaderSpy.completeSuccessfully(with: feedImage)
-		
-		XCTAssertEqual(receivedImage, feedImage)
+
+		expect(sut, for: url, toCompleteWith: .success(feedImage), when: {
+			loaderSpy.completeSuccessfully(with: feedImage)
+		})
 	}
 	
 	func test_loadImageData_cachesImageOnSuccessfulLoad() {
@@ -100,14 +98,9 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 		let url = anyURL()
 		let expectedError = anyNSError()
 		
-		var receivedError: NSError?
-		_ = sut.loadImageData(from: url) { _ = $0.mapError {
-			receivedError = $0 as NSError
-			return $0
-		}}
-		loaderSpy.complete(with: expectedError)
-		
-		XCTAssertEqual(receivedError, expectedError)
+		expect(sut, for: url, toCompleteWith: .failure(expectedError), when: {
+			loaderSpy.complete(with: expectedError)
+		})
 	}
 	
 	// MARK: - Helpers
@@ -119,6 +112,27 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
 		trackForMemoryLeaks(sut)
 		
 		return (sut, loaderSpy)
+	}
+	
+	private func expect(_ sut: FeedImageDataLoader, for url: URL, toCompleteWith expectedResult: FeedImageDataLoader.Result, when action: () -> Void, file: StaticString = #file, line: UInt = 0) {
+		let exp = expectation(description: "Wait for load to complete")
+		_ = sut.loadImageData(from: url) { receivedResult in
+			switch (receivedResult, expectedResult) {
+			case let (.success(receivedImage), .success(expectedImage)):
+				XCTAssertEqual(receivedImage, expectedImage, "Expected to receive \(expectedImage), got \(receivedImage) instead", file: file, line: line)
+				
+			case let (.failure(receivedError as NSError), .failure(expectedError as NSError)):
+				XCTAssertEqual(receivedError, expectedError, "Expected to receive error \(expectedError), got \(receivedError) instead", file: file, line: line)
+				
+			default:
+				XCTFail("Expected result \(expectedResult), got \(receivedResult), instead", file: file, line: line)
+			}
+			
+			exp.fulfill()
+		}
+		
+		action()
+		wait(for: [exp], timeout: 1.0)
 	}
 	
 	private class FeedImageDataLoaderSpy: FeedImageDataLoader {
