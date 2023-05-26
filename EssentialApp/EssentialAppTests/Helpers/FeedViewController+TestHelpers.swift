@@ -56,6 +56,10 @@ extension FeedViewController {
 		return ds?.tableView(tableView, cellForRowAt: index)
 	}
 	
+	func renderedFeedImageData(at index: Int) -> Data? {
+		return simulateFeedImageViewVisible(at: 0)?.renderedImage
+	}
+	
 	var errorMessage: String? {
 		return errorView?.message
 	}
