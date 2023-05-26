@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53307EB62A209F1000E370A2 /* SceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53307EB52A209F1000E370A2 /* SceneDelegateTests.swift */; };
 		536D0FAF2A1BF59E00D60260 /* FeedLoaderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D0FAE2A1BF59E00D60260 /* FeedLoaderStub.swift */; };
 		536D0FB12A1BF98C00D60260 /* XCTestCase+FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D0FB02A1BF98C00D60260 /* XCTestCase+FeedLoader.swift */; };
 		536D0FB52A1CA74B00D60260 /* FeedLoaderCacheDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D0FB42A1CA74B00D60260 /* FeedLoaderCacheDecorator.swift */; };
@@ -68,6 +69,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		53307EB52A209F1000E370A2 /* SceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegateTests.swift; sourceTree = "<group>"; };
 		536D0FAE2A1BF59E00D60260 /* FeedLoaderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderStub.swift; sourceTree = "<group>"; };
 		536D0FB02A1BF98C00D60260 /* XCTestCase+FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FeedLoader.swift"; sourceTree = "<group>"; };
 		536D0FB42A1CA74B00D60260 /* FeedLoaderCacheDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderCacheDecorator.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				53D273AB2A1A7856003F5300 /* Helpers */,
 				53D273B12A1BF35F003F5300 /* FeedLoaderCacheDecoratorTests.swift */,
 				536D0FB62A1E6AC500D60260 /* FeedImageDataLoaderCacheDecoratorTests.swift */,
+				53307EB52A209F1000E370A2 /* SceneDelegateTests.swift */,
 			);
 			path = EssentialAppTests;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				536D0FB72A1E6AC500D60260 /* FeedImageDataLoaderCacheDecoratorTests.swift in Sources */,
 				536D0FB12A1BF98C00D60260 /* XCTestCase+FeedLoader.swift in Sources */,
 				536D0FBB2A1F67E500D60260 /* XCTestCase+FeedImageDataLoader.swift in Sources */,
+				53307EB62A209F1000E370A2 /* SceneDelegateTests.swift in Sources */,
 				53D273A62A1A2673003F5300 /* FeedLoaderWithFallbackCompositeTests.swift in Sources */,
 				536D0FB92A1F5BA200D60260 /* FeedImageDataLoaderSpy.swift in Sources */,
 				53EAFF852A10E20B00F640BC /* EssentialAppTests.swift in Sources */,
