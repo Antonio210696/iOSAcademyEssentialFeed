@@ -7,6 +7,7 @@
 
 import XCTest
 import EssentialApp
+import EssentialFeed
 
 final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase, FeedImageDataLoaderTestCase {
 	func test_init_doesSendAnyMessage() {

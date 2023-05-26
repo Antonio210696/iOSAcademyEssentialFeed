@@ -1,0 +1,43 @@
+{
+  "configurations" : [
+    {
+      "id" : "089C5838-8E82-4A5E-ACAB-088B042B936D",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:EssentialApp\/EssentialApp.xcodeproj",
+          "identifier" : "53EAFF692A10E20900F640BC",
+          "name" : "EssentialApp"
+        },
+        {
+          "containerPath" : "container:EssentialFeed\/EssentialFeed.xcodeproj",
+          "identifier" : "530E0FBB29DEE32D0099E4CF",
+          "name" : "EssentialFeed"
+        },
+        {
+          "containerPath" : "container:EssentialFeed\/EssentialFeed.xcodeproj",
+          "identifier" : "532165AD29FD8962008F998C",
+          "name" : "EssentialFeediOS"
+        }
+      ]
+    },
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:EssentialApp\/EssentialApp.xcodeproj",
+        "identifier" : "53EAFF7F2A10E20B00F640BC",
+        "name" : "EssentialAppTests"
+      }
+    }
+  ],
+  "version" : 1
+}
