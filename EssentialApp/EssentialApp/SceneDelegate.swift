@@ -17,6 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
 	}()
 	
+	private lazy var localFeedLoader: LocalFeedLoader = {
+		LocalFeedLoader(store: store, currentDate: Date.init)
+	}()
+	
 	private lazy var store: FeedStore & FeedImageDataStore = {
 		try! CoreDataFeedStore(storeURL: NSPersistentContainer
 		.defaultDirectoryURL()
@@ -55,6 +59,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 					decoratee: remoteImageLoader,
 					cache: localImageLoader))))
 		
+	}
+	
+	func sceneWillResignActive(_ scene: UIScene) {
+		localFeedLoader.validateCache { _ in }
 	}
 }
 
