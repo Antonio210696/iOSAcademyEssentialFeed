@@ -26,7 +26,7 @@ public final class ErrorView: UIView {
 		return alpha > 0
 	}
 	
-	private func setMessageAnimated(_ message: String?) {
+	func setMessageAnimated(_ message: String?) {
 		if let message = message {
 			showAnimated(message)
 		} else {
@@ -45,7 +45,7 @@ public final class ErrorView: UIView {
 	@IBAction private func hideMessageAnimated() {
 		UIView.animate(
 			withDuration: 0.25,
-			animations: { self.alpha = 0},
+			animations: { self.alpha = 0 },
 			completion: { completed in
 				if completed { self.label.text = nil }
 			}
