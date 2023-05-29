@@ -11,8 +11,8 @@ public final class ErrorView: UIView {
 	@IBOutlet private var label: UILabel!
 	
 	public var message: String? {
-		get { return label.text }
-		set { label.text = newValue }
+		get { return isVisible ? label.text : nil }
+		set { setMessageAnimated(newValue) }
 	}
 	
 	public override func awakeFromNib() {
