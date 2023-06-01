@@ -281,7 +281,6 @@
 		530E0FB229DEE32D0099E4CF = {
 			isa = PBXGroup;
 			children = (
-				53982DDC2A02C1910017BB9D /* UIImageView+Animations.swift */,
 				530E0FBD29DEE32D0099E4CF /* Products */,
 				539AE6C429EB236800C98706 /* README.md */,
 				53419F3A29E6B6B7009868FA /* CI.xctestplan */,
@@ -559,6 +558,7 @@
 				53982DDA2A02C0900017BB9D /* UITableView+DequeueReusable.swift */,
 				53EAFF462A0D6F1200F640BC /* UIRefreshControl+Helpers.swift */,
 				538FF0212A23A433007C4F7C /* UITableView+HeaderSize.swift */,
+				53982DDC2A02C1910017BB9D /* UIImageView+Animations.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
