@@ -35,6 +35,7 @@
 		53D273AD2A1A7871003F5300 /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D273AC2A1A7871003F5300 /* XCTestCase+Helpers.swift */; };
 		53E4512E2A2DCA2300CEA4F0 /* EssentialFeedAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E4512D2A2DCA2300CEA4F0 /* EssentialFeedAPI.framework */; };
 		53E4512F2A2DCA2300CEA4F0 /* EssentialFeedAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53E4512D2A2DCA2300CEA4F0 /* EssentialFeedAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53E451312A30E72600CEA4F0 /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E451302A30E72600CEA4F0 /* CombineHelpers.swift */; };
 		53EAFF6E2A10E20900F640BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EAFF6D2A10E20900F640BC /* AppDelegate.swift */; };
 		53EAFF702A10E20900F640BC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EAFF6F2A10E20900F640BC /* SceneDelegate.swift */; };
 		53EAFF772A10E20B00F640BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53EAFF762A10E20B00F640BC /* Assets.xcassets */; };
@@ -94,6 +95,7 @@
 		53AAB1802A10EEE1004A293D /* EssentialFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EssentialFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D273AC2A1A7871003F5300 /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
 		53E4512D2A2DCA2300CEA4F0 /* EssentialFeedAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EssentialFeedAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53E451302A30E72600CEA4F0 /* CombineHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineHelpers.swift; sourceTree = "<group>"; };
 		53EAFF6A2A10E20900F640BC /* EssentialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EssentialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53EAFF6D2A10E20900F640BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		53EAFF6F2A10E20900F640BC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				53EAFF762A10E20B00F640BC /* Assets.xcassets */,
 				53EAFF782A10E20B00F640BC /* LaunchScreen.storyboard */,
 				53EAFF7B2A10E20B00F640BC /* Info.plist */,
+				53E451302A30E72600CEA4F0 /* CombineHelpers.swift */,
 			);
 			path = EssentialApp;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 			files = (
 				538FF0032A20A479007C4F7C /* MainQueueDispatchDecorator.swift in Sources */,
 				53EAFF6E2A10E20900F640BC /* AppDelegate.swift in Sources */,
+				53E451312A30E72600CEA4F0 /* CombineHelpers.swift in Sources */,
 				53EAFF702A10E20900F640BC /* SceneDelegate.swift in Sources */,
 				538FF0052A20A479007C4F7C /* FeedImageDataLoaderPresentationAdapter.swift in Sources */,
 				538FF0062A20A479007C4F7C /* WeakRefVirtualProxy.swift in Sources */,
