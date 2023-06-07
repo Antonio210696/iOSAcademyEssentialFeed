@@ -5,7 +5,7 @@
 //  Created by Antonio Epifani on 04/05/23.
 //
 
-import Foundation
+import Combine
 import EssentialFeed
 
 final class MainQueueDispatchDecorator<T> {
@@ -24,18 +24,51 @@ final class MainQueueDispatchDecorator<T> {
 	}
 }
 
-extension MainQueueDispatchDecorator: FeedLoader where T == FeedLoader {
-	func load(completion: @escaping (Result<[FeedImage], Error>) -> Void) {
-		decoratee.load { [weak self] result in
-			self?.dispatch { completion(result) }
-		}
-	}
-}
-
 extension MainQueueDispatchDecorator: FeedImageDataLoader where T == FeedImageDataLoader {
 	func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
 		return decoratee.loadImageData(from: url) { [weak self] result in
 			self?.dispatch { completion(result) }
+		}
+	}
+}
+extension Publisher {
+	func dispatchOnMainQueue() -> AnyPublisher<Output, Failure> {
+		receive(on: DispatchQueue.immediateWhenOnMainQueueScheduler).eraseToAnyPublisher()
+	}
+}
+
+extension DispatchQueue {
+	
+	static var immediateWhenOnMainQueueScheduler: ImmediateWhenOnMainQueueScheduler {
+		ImmediateWhenOnMainQueueScheduler()
+	}
+	
+	struct ImmediateWhenOnMainQueueScheduler: Scheduler {
+		typealias SchedulerTimeType = DispatchQueue.SchedulerTimeType
+		typealias SchedulerOptions = DispatchQueue.SchedulerOptions
+		
+		var now: SchedulerTimeType {
+			DispatchQueue.main.now
+		}
+		
+		var minimumTolerance: DispatchQueue.SchedulerTimeType.Stride {
+			DispatchQueue.main.minimumTolerance
+		}
+		
+		func schedule(options: DispatchQueue.SchedulerOptions?, _ action: @escaping () -> Void) {
+			guard Thread.isMainThread else {
+				return DispatchQueue.main.schedule(options: options, action)
+			}
+			
+			action()
+		}
+		
+		func schedule(after date: DispatchQueue.SchedulerTimeType, tolerance: DispatchQueue.SchedulerTimeType.Stride, options: DispatchQueue.SchedulerOptions?, _ action: @escaping () -> Void) {
+			DispatchQueue.main.schedule(after: date, tolerance: tolerance, options: options, action)
+		}
+		
+		func schedule(after date: DispatchQueue.SchedulerTimeType, interval: DispatchQueue.SchedulerTimeType.Stride, tolerance: DispatchQueue.SchedulerTimeType.Stride, options: DispatchQueue.SchedulerOptions?, _ action: @escaping () -> Void) -> Cancellable {
+			DispatchQueue.main.schedule(after: date, interval: interval, tolerance: tolerance, options: options, action)
 		}
 	}
 }
