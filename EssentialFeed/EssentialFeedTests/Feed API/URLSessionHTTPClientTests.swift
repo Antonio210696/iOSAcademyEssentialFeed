@@ -7,7 +7,6 @@
 
 import XCTest
 import EssentialFeed
-import EssentialFeedAPI
 
 class URLSessionHTTPClientTests: XCTestCase {
 	override func tearDown() {
