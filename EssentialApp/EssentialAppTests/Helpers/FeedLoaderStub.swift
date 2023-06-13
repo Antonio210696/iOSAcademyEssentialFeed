@@ -7,10 +7,10 @@
 
 import EssentialFeed
 
-class FeedLoaderStub: FeedLoader {
-	private let result: FeedLoader.Result
+class FeedLoaderStub {
+	private let result: Swift.Result<[FeedImage], Error>
 	
-	init(result: FeedLoader.Result) {
+	init(result: Swift.Result<[FeedImage], Error>) {
 		self.result = result
 	}
 	
