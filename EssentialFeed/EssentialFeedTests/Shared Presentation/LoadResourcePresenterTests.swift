@@ -48,11 +48,6 @@ final class LoadResourcePresenterTests: XCTestCase {
 			.display(isLoading: false)
 		])
 	}
-	
-	func test_title_isLocalized() {
-		XCTAssertEqual(LoadResourcePresenter.title, localized("FEED_VIEW_TITLE"))
-	}
-	
 	// MARK: - Helpers.
 	
 	private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: LoadResourcePresenter, view: ViewSpy) {

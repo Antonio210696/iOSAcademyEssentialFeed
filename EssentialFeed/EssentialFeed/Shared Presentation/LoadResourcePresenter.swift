@@ -8,7 +8,6 @@
 import Foundation
 
 public final class LoadResourcePresenter {
-
 	private let errorView: FeedErrorView
 	private let loadingView: FeedLoadingView
 	private let feedView: FeedView
@@ -27,14 +26,6 @@ public final class LoadResourcePresenter {
 			comment: "Error message displayed when we can't load the image feed from the server")
 	}
 	
-	public static var title: String {
-		return NSLocalizedString(
-			"FEED_VIEW_TITLE",
-			tableName: "Feed",
-			bundle: Bundle(for: FeedPresenter.self),
-			comment: "Title for the feed view")
-	}
-		
 	public func didStartLoadingFeed() {
 		errorView.display(.noError)
 		loadingView.display(FeedLoadingViewModel(isLoading: true))
