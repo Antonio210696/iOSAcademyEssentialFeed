@@ -52,5 +52,9 @@ public final class FeedPresenter {
 		loadingView.display(ResourceLoadingViewModel(isLoading: false))
 		errorView.display(.error(message: feedLoadError))
 	}
+	
+	public static func map(_ feed: [FeedImage]) -> FeedViewModel {
+		FeedViewModel(feed: feed)
+	}
 }
 
