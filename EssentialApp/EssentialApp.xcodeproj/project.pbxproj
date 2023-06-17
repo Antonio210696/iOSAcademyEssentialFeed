@@ -16,7 +16,7 @@
 		538FF0052A20A479007C4F7C /* FeedImageDataLoaderPresentationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538FEFFE2A20A479007C4F7C /* FeedImageDataLoaderPresentationAdapter.swift */; };
 		538FF0062A20A479007C4F7C /* WeakRefVirtualProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538FEFFD2A20A479007C4F7C /* WeakRefVirtualProxy.swift */; };
 		538FF0072A20A479007C4F7C /* FeedViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538FF0022A20A479007C4F7C /* FeedViewAdapter.swift */; };
-		538FF0082A20A479007C4F7C /* FeedLoaderPresentationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538FF0012A20A479007C4F7C /* FeedLoaderPresentationAdapter.swift */; };
+		538FF0082A20A479007C4F7C /* LoadResourcePresentationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538FF0012A20A479007C4F7C /* LoadResourcePresentationAdapter.swift */; };
 		538FF0112A20A4C2007C4F7C /* FeedUIIntegrationTests+LoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538FF00F2A20A4C2007C4F7C /* FeedUIIntegrationTests+LoaderSpy.swift */; };
 		538FF0122A20A4C2007C4F7C /* FeedViewControllerTests+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538FF00A2A20A4C1007C4F7C /* FeedViewControllerTests+Localization.swift */; };
 		538FF0132A20A4C2007C4F7C /* UIImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538FF00E2A20A4C2007C4F7C /* UIImage+TestHelpers.swift */; };
@@ -74,7 +74,7 @@
 		538FEFFE2A20A479007C4F7C /* FeedImageDataLoaderPresentationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataLoaderPresentationAdapter.swift; sourceTree = "<group>"; };
 		538FEFFF2A20A479007C4F7C /* MainQueueDispatchDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQueueDispatchDecorator.swift; sourceTree = "<group>"; };
 		538FF0002A20A479007C4F7C /* FeedUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUIComposer.swift; sourceTree = "<group>"; };
-		538FF0012A20A479007C4F7C /* FeedLoaderPresentationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderPresentationAdapter.swift; sourceTree = "<group>"; };
+		538FF0012A20A479007C4F7C /* LoadResourcePresentationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadResourcePresentationAdapter.swift; sourceTree = "<group>"; };
 		538FF0022A20A479007C4F7C /* FeedViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewAdapter.swift; sourceTree = "<group>"; };
 		538FF0092A20A4C1007C4F7C /* FeedUIIntegrationTests+Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedUIIntegrationTests+Assertions.swift"; sourceTree = "<group>"; };
 		538FF00A2A20A4C1007C4F7C /* FeedViewControllerTests+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedViewControllerTests+Localization.swift"; sourceTree = "<group>"; };
@@ -174,7 +174,7 @@
 				53EAFF6F2A10E20900F640BC /* SceneDelegate.swift */,
 				538FF0002A20A479007C4F7C /* FeedUIComposer.swift */,
 				538FF0022A20A479007C4F7C /* FeedViewAdapter.swift */,
-				538FF0012A20A479007C4F7C /* FeedLoaderPresentationAdapter.swift */,
+				538FF0012A20A479007C4F7C /* LoadResourcePresentationAdapter.swift */,
 				538FEFFE2A20A479007C4F7C /* FeedImageDataLoaderPresentationAdapter.swift */,
 				538FEFFD2A20A479007C4F7C /* WeakRefVirtualProxy.swift */,
 				538FEFFF2A20A479007C4F7C /* MainQueueDispatchDecorator.swift */,
@@ -306,7 +306,7 @@
 				538FF0052A20A479007C4F7C /* FeedImageDataLoaderPresentationAdapter.swift in Sources */,
 				538FF0062A20A479007C4F7C /* WeakRefVirtualProxy.swift in Sources */,
 				538FF0042A20A479007C4F7C /* FeedUIComposer.swift in Sources */,
-				538FF0082A20A479007C4F7C /* FeedLoaderPresentationAdapter.swift in Sources */,
+				538FF0082A20A479007C4F7C /* LoadResourcePresentationAdapter.swift in Sources */,
 				538FF0072A20A479007C4F7C /* FeedViewAdapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
