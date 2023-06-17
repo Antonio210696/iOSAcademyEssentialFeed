@@ -48,4 +48,8 @@ public final class FeedImagePresenter<View: FeedImageView, Image> where Image ==
 			description: model.description,
 			location: model.location))
 	}
+	
+	public static func map(_ image: FeedImage) -> FeedImageViewModel<Image> {
+		FeedImageViewModel(isLoading: false, shouldRetry: false, image: nil, description: image.description, location: image.location)
+	}
 }
