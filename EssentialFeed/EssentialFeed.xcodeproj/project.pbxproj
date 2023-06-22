@@ -75,6 +75,12 @@
 		5389742D2A44C89500580041 /* FEED_WITH_FAILED_IMAGE_LOADING_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 538974212A44C89500580041 /* FEED_WITH_FAILED_IMAGE_LOADING_light.png */; };
 		5389742F2A44C89500580041 /* LIST_WITH_ERROR_MESSAGE_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 538974232A44C89500580041 /* LIST_WITH_ERROR_MESSAGE_light.png */; };
 		538974302A44C89500580041 /* EMPTY_LIST_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 538974242A44C89500580041 /* EMPTY_LIST_dark.png */; };
+		538974322A44CBD600580041 /* SnapshotTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538974312A44CBD600580041 /* SnapshotTestHelpers.swift */; };
+		538974342A44CC2800580041 /* UIViewController+Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538974332A44CC2800580041 /* UIViewController+Snapshots.swift */; };
+		538974362A44CC4A00580041 /* SnapshotWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538974352A44CC4A00580041 /* SnapshotWindow.swift */; };
+		538974382A44CC6000580041 /* SnapshotConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538974372A44CC6000580041 /* SnapshotConfiguration.swift */; };
+		5389743A2A44CC7200580041 /* ImageStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538974392A44CC7200580041 /* ImageStub.swift */; };
+		5389743C2A44CCF900580041 /* ListViewController+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5389743B2A44CCF900580041 /* ListViewController+Snapshot.swift */; };
 		538FF01E2A239B36007C4F7C /* FeedSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538FF01D2A239B36007C4F7C /* FeedSnapshotTests.swift */; };
 		538FF0202A23A05E007C4F7C /* UIImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538FF01F2A23A05E007C4F7C /* UIImage+TestHelpers.swift */; };
 		538FF0222A23A433007C4F7C /* UITableView+HeaderSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538FF0212A23A433007C4F7C /* UITableView+HeaderSize.swift */; };
@@ -234,6 +240,12 @@
 		538974212A44C89500580041 /* FEED_WITH_FAILED_IMAGE_LOADING_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FEED_WITH_FAILED_IMAGE_LOADING_light.png; sourceTree = "<group>"; };
 		538974232A44C89500580041 /* LIST_WITH_ERROR_MESSAGE_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LIST_WITH_ERROR_MESSAGE_light.png; sourceTree = "<group>"; };
 		538974242A44C89500580041 /* EMPTY_LIST_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EMPTY_LIST_dark.png; sourceTree = "<group>"; };
+		538974312A44CBD600580041 /* SnapshotTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotTestHelpers.swift; sourceTree = "<group>"; };
+		538974332A44CC2800580041 /* UIViewController+Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Snapshots.swift"; sourceTree = "<group>"; };
+		538974352A44CC4A00580041 /* SnapshotWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotWindow.swift; sourceTree = "<group>"; };
+		538974372A44CC6000580041 /* SnapshotConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotConfiguration.swift; sourceTree = "<group>"; };
+		538974392A44CC7200580041 /* ImageStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStub.swift; sourceTree = "<group>"; };
+		5389743B2A44CCF900580041 /* ListViewController+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewController+Snapshot.swift"; sourceTree = "<group>"; };
 		538FF01D2A239B36007C4F7C /* FeedSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSnapshotTests.swift; sourceTree = "<group>"; };
 		538FF01F2A23A05E007C4F7C /* UIImage+TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+TestHelpers.swift"; sourceTree = "<group>"; };
 		538FF0212A23A433007C4F7C /* UITableView+HeaderSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+HeaderSize.swift"; sourceTree = "<group>"; };
@@ -634,6 +646,12 @@
 			isa = PBXGroup;
 			children = (
 				538FF01F2A23A05E007C4F7C /* UIImage+TestHelpers.swift */,
+				538974312A44CBD600580041 /* SnapshotTestHelpers.swift */,
+				538974332A44CC2800580041 /* UIViewController+Snapshots.swift */,
+				538974392A44CC7200580041 /* ImageStub.swift */,
+				538974352A44CC4A00580041 /* SnapshotWindow.swift */,
+				538974372A44CC6000580041 /* SnapshotConfiguration.swift */,
+				5389743B2A44CCF900580041 /* ListViewController+Snapshot.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1162,8 +1180,14 @@
 			files = (
 				532165CB29FD9AFE008F998C /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				538974152A44C70600580041 /* ListSnapshotTests.swift in Sources */,
+				5389743C2A44CCF900580041 /* ListViewController+Snapshot.swift in Sources */,
+				538974342A44CC2800580041 /* UIViewController+Snapshots.swift in Sources */,
 				538FF01E2A239B36007C4F7C /* FeedSnapshotTests.swift in Sources */,
+				538974322A44CBD600580041 /* SnapshotTestHelpers.swift in Sources */,
 				538FF0202A23A05E007C4F7C /* UIImage+TestHelpers.swift in Sources */,
+				5389743A2A44CC7200580041 /* ImageStub.swift in Sources */,
+				538974382A44CC6000580041 /* SnapshotConfiguration.swift in Sources */,
+				538974362A44CC4A00580041 /* SnapshotWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
