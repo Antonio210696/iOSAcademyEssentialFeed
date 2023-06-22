@@ -28,7 +28,7 @@ public final class ListViewController: UITableViewController, UITableViewDataSou
 		didSet { tableView.reloadData() }
 	}
 	
-	public var delegate: FeedViewControllerDelegate?
+	public var onRefresh: (() -> Void)?
 	
 	public override func viewDidLoad() {
 		super.viewDidLoad()
@@ -56,7 +56,7 @@ public final class ListViewController: UITableViewController, UITableViewDataSou
 	}
 	
 	@IBAction private func refresh() {
-		delegate?.didRequestFeedRefresh()
+		onRefresh?()
 	}
 	
 	public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
