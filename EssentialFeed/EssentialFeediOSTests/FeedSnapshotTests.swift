@@ -46,10 +46,10 @@ class FeedSnapshotTests: XCTestCase {
 		assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "FEED_WITH_FAILED_IMAGE_LOADING_dark")
 	}
 	
-	private func makeSUT() -> FeedViewController {
-		let bundle = Bundle(for: FeedViewController.self)
+	private func makeSUT() -> ListViewController {
+		let bundle = Bundle(for: ListViewController.self)
 		let storyboard = UIStoryboard(name: "Feed", bundle: bundle)
-		let controller = storyboard.instantiateInitialViewController() as! FeedViewController
+		let controller = storyboard.instantiateInitialViewController() as! ListViewController
 		controller.loadViewIfNeeded()
 		controller.tableView.showsVerticalScrollIndicator = false
 		controller.tableView.showsHorizontalScrollIndicator = false
@@ -195,7 +195,7 @@ struct SnapshotConfiguration {
 	}
 }
 
-private extension FeedViewController {
+private extension ListViewController {
 	func display(_ stubs: [ImageStub]) {
 		let cells: [FeedImageCellController] = stubs.map { stub in
 			let cellController = FeedImageCellController(viewModel: stub.viewModel, delegate: stub)
