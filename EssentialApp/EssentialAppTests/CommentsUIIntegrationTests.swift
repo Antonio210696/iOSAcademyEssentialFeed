@@ -12,7 +12,7 @@ import EssentialFeediOS
 import EssentialApp
 import Combine
 
-class CommentsUIIntegrationTests: FeedUIIntegrationTests {
+class CommentsUIIntegrationTests: XCTestCase {
 	
 	func test_commentsView_hasTitle() {
 		let (sut, _) = makeSUT()
@@ -98,7 +98,7 @@ class CommentsUIIntegrationTests: FeedUIIntegrationTests {
 		assertThat(sut, isRendering: [comment])
 	}
 	
-	override func test_loadFeedCompletion_rendersErrorMessageOnError() {
+	func test_loadCommentsCompletion_rendersErrorMessageOnError() {
 		let (sut, loader) = makeSUT()
 		
 		sut.loadViewIfNeeded()
@@ -109,7 +109,7 @@ class CommentsUIIntegrationTests: FeedUIIntegrationTests {
 		XCTAssertEqual(sut.errorMessage, loadError)
 	}
 	
-	override func test_loadCompletionFeed_rendersErrorMessageOnErrorUntilNextReload() {
+	func test_loadCommentsCompletion_rendersErrorMessageOnErrorUntilNextReload() {
 		let (sut, loader) = makeSUT()
 		
 		sut.loadViewIfNeeded()
@@ -122,7 +122,7 @@ class CommentsUIIntegrationTests: FeedUIIntegrationTests {
 		XCTAssertEqual(sut.errorMessage, nil)
 	}
 	
-	override func test_tapOnErrorView_hidesErrorMessage() {
+	func test_tapOnErrorView_hidesErrorMessage() {
 		let (sut, loader) = makeSUT()
 		
 		sut.loadViewIfNeeded()
@@ -186,7 +186,7 @@ class CommentsUIIntegrationTests: FeedUIIntegrationTests {
 		}
 	}
 	
-	func assertThat(_ sut: ListViewController, isRendering comments: [ImageComment], file: StaticString = #filePath, line: UInt = #line) {
+	private func assertThat(_ sut: ListViewController, isRendering comments: [ImageComment], file: StaticString = #filePath, line: UInt = #line) {
 		XCTAssertEqual(sut.numberOfRenderedComments(), comments.count, "comments count", file: file, line: line)
 		
 		let viewModel = ImageCommentsPresenter.map(comments)
