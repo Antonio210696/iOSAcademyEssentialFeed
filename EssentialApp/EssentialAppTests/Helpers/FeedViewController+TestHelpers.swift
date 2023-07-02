@@ -20,6 +20,54 @@ extension ListViewController {
 		refreshControl?.simulatePullToRefresh()
 	}
 	
+	var isShowingLoadingIndicator: Bool {
+		return refreshControl?.isRefreshing == true
+	}
+	func simulateErrorViewTap() {
+		errorView.simulateTap()
+	}
+	
+	var errorMessage: String? {
+		return errorView.message
+	}
+	
+}
+
+// MARK: Comment specific DSLs
+extension ListViewController {
+	func numberOfRenderedComments() -> Int {
+		tableView.numberOfSections == 0 ? 0 : tableView.numberOfRows(inSection: commentSection)
+	}
+	
+	private var commentSection: Int {
+		return 0
+	}
+	
+	func commentView(at row: Int) -> ImageCommentCell? {
+		guard numberOfRenderedComments() > row else {
+			return nil
+		}
+		
+		let ds = tableView.dataSource
+		let index = IndexPath(row: row, section: commentSection)
+		return ds?.tableView(tableView, cellForRowAt: index) as? ImageCommentCell
+	}
+	
+	func commentMessage(at row: Int) -> String? {
+		commentView(at: row)?.messageLabel.text
+	}
+	
+	func commentDate(at row: Int) -> String? {
+		commentView(at: row)?.dateLabel.text
+	}
+	
+	func commentUsername(at row: Int) -> String? {
+		commentView(at: row)?.usernameLabel.text
+	}
+}
+
+// MARK: Feed specific DSLs
+extension ListViewController {
 	@discardableResult
 	func simulateFeedImageViewVisible(at index: Int) -> FeedImageCell? {
 		return feedImageView(at: index) as? FeedImageCell
@@ -49,10 +97,6 @@ extension ListViewController {
 		ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
 	}
 	
-	var isShowingLoadingIndicator: Bool {
-		return refreshControl?.isRefreshing == true
-	}
-	
 	func numberOfRenderedFeedImageViews() -> Int {
 		return tableView.numberOfSections == 0 ? 0 :
 		tableView.numberOfRows(inSection: feedImageSection)
@@ -70,14 +114,6 @@ extension ListViewController {
 	
 	func renderedFeedImageData(at index: Int) -> Data? {
 		return simulateFeedImageViewVisible(at: 0)?.renderedImage
-	}
-	
-	func simulateErrorViewTap() {
-		errorView.simulateTap()
-	}
-	
-	var errorMessage: String? {
-		return errorView.message
 	}
 	
 	private var feedImageSection: Int {
