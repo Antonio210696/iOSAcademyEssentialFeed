@@ -150,6 +150,10 @@ extension ListViewController {
 		return simulateFeedImageViewVisible(at: 0)?.renderedImage
 	}
 	
+	var canLoadMoreFeed: Bool {
+		loadMoreFeedCell() != nil
+	}
+	
 	var isShowingLoadMoreFeedIndicator: Bool {
 		let view = loadMoreFeedCell()
 		RunLoop.main.run(until: Date())

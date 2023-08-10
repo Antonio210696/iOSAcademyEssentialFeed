@@ -11,12 +11,28 @@ import EssentialFeediOS
 @testable import EssentialApp
 
 final class FeedAcceptanceTests: XCTestCase {
+	
 	func test_onLaunch_displaysRemoteFeedWhenCustomerHasConnectivity() {
 		let feed = launch(httpClient: .online(response))
 		
 		XCTAssertEqual(feed.numberOfRenderedFeedImageViews(), 2)
 		XCTAssertEqual(feed.renderedFeedImageData(at: 0), makeImageData())
 		XCTAssertEqual(feed.renderedFeedImageData(at: 1), makeImageData())
+		XCTAssertTrue(feed.canLoadMoreFeed)
+		
+		feed.simulateLoadMoreFeedAction()
+		XCTAssertEqual(feed.numberOfRenderedFeedImageViews(), 3)
+		XCTAssertEqual(feed.renderedFeedImageData(at: 0), makeImageData())
+		XCTAssertEqual(feed.renderedFeedImageData(at: 1), makeImageData())
+		XCTAssertEqual(feed.renderedFeedImageData(at: 2), makeImageData())
+		XCTAssertTrue(feed.canLoadMoreFeed)
+		
+		feed.simulateLoadMoreFeedAction()
+		XCTAssertEqual(feed.numberOfRenderedFeedImageViews(), 3)
+		XCTAssertEqual(feed.renderedFeedImageData(at: 0), makeImageData())
+		XCTAssertEqual(feed.renderedFeedImageData(at: 1), makeImageData())
+		XCTAssertEqual(feed.renderedFeedImageData(at: 2), makeImageData())
+		XCTAssertFalse(feed.canLoadMoreFeed)
 	}
 	
 	func test_onLaunch_displaysCachedRemoteFeedWhenCustomerHasNoCnnectivity() {
@@ -166,11 +182,17 @@ final class FeedAcceptanceTests: XCTestCase {
 	
 	private func makeData(for url: URL) -> Data {
 		switch url.path {
-		case "/image-1", "/image-2":
+		case "/image-1", "/image-2", "/image-3":
 			return makeImageData()
 			
-		case "/essential-feed/v1/feed":
-			return makeFeedData()
+		case "/essential-feed/v1/feed" where url.query?.contains("after_id") == false:
+			return makeFirstFeedPageData()
+			
+		case "/essential-feed/v1/feed" where url.query?.contains("after_id=DB256423-0359-440B-B739-05286E0D943E") == true:
+			return makeSecondFeedPageData()
+			
+		case "/essential-feed/v1/feed" where url.query?.contains("after_id=6D133EE6-AE42-4AE6-8F13-3B470ABCF622") == true:
+			return makeLastFeedPageData()
 			
 		case "/essential-feed/v1/image/4735ED4C-EDEB-48D4-AC7E-D0E6403BEFB4/comments":
 			return makeCommentsData()
@@ -183,11 +205,21 @@ final class FeedAcceptanceTests: XCTestCase {
 		return UIImage.make(withColor: .red).pngData()!
 	}
 	
-	private func makeFeedData() -> Data {
+	private func makeFirstFeedPageData() -> Data {
 		return try! JSONSerialization.data(withJSONObject: ["items": [
 			["id": "4735ED4C-EDEB-48D4-AC7E-D0E6403BEFB4", "image": "http://feed.com/image-1"],
 			["id": "DB256423-0359-440B-B739-05286E0D943E", "image": "http://feed.com/image-2"]
 		]])
+	}
+	
+	private func makeSecondFeedPageData() -> Data {
+		return try! JSONSerialization.data(withJSONObject: ["items": [
+			["id": "6D133EE6-AE42-4AE6-8F13-3B470ABCF622", "image": "http://feed.com/image-3"],
+		]])
+	}
+	
+	private func makeLastFeedPageData() -> Data {
+		return try! JSONSerialization.data(withJSONObject: ["items": []])
 	}
 	
 	private func makeCommentsData() -> Data {
