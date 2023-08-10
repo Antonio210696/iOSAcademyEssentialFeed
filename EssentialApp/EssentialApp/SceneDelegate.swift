@@ -22,7 +22,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}()
 	
 	private lazy var baseURL = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed")
-	private lazy var remoteURL = baseURL?.appending(path: "/v1/feed")
 	
 	private lazy var navigationController: UINavigationController = UINavigationController(rootViewController: FeedUIComposer.feedComposedWith(
 			feedLoader: makeRemoteFeedLoaderwithLocalFallback,
@@ -72,8 +71,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		}
 	}
 	private func makeRemoteFeedLoaderwithLocalFallback() -> AnyPublisher<Paginated<FeedImage>, Error> {
+		let url = FeedEndpoint.get.url(baseURL: baseURL!)
+		
 		return httpClient
-			.getPublisher(url: remoteURL!)
+			.getPublisher(url: url)
 			.tryMap(FeedItemsMapper.map)
 			.caching(to: localFeedLoader)
 			.fallback(to: localFeedLoader.loadPublisher)

@@ -13,7 +13,7 @@ public enum ImageCommentsEndpoint {
 	public func url(baseURL: URL) -> URL {
 		switch self {
 		case let .get(image):
-			return baseURL.appending(path: "/v1/image/\(image.id)/comments")
+			return baseURL.appendingPathComponent("/v1/image/\(image.id)/comments")
 		}
 	}
 }
