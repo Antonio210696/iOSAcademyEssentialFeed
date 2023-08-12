@@ -114,6 +114,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		return httpClient
 				.getPublisher(url: url)
 				.tryMap(FeedItemsMapper.map)
+				.dispatchOnMainQueue()
 				.eraseToAnyPublisher()
 	}
 	
