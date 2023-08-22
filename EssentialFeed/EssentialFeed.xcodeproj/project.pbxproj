@@ -226,8 +226,8 @@
 		5333C9882A18C38A00DC72B4 /* CoreDataFeedImageDataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFeedImageDataStoreTests.swift; sourceTree = "<group>"; };
 		5333C98A2A1907D100DC72B4 /* FeedStore2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FeedStore2.xcdatamodel; sourceTree = "<group>"; };
 		5333C98B2A1908BF00DC72B4 /* CoreDataFeedStore+FeedImageDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataFeedStore+FeedImageDataLoader.swift"; sourceTree = "<group>"; };
-		53419F3A29E6B6B7009868FA /* CI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CI.xctestplan; sourceTree = "<group>"; };
-		5348BB1029E69C8C0010BBF1 /* EssentialFeed.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EssentialFeed.xctestplan; sourceTree = "<group>"; };
+		53419F3A29E6B6B7009868FA /* CI_macOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CI_macOS.xctestplan; sourceTree = "<group>"; };
+		5348BB1029E69C8C0010BBF1 /* CI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CI.xctestplan; sourceTree = "<group>"; };
 		53504B422A49FA8000D6462A /* CellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellController.swift; sourceTree = "<group>"; };
 		53504B442A4C1EFB00D6462A /* LIST_WITH_ERROR_MESSAGE_light_extraExtraExtraLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LIST_WITH_ERROR_MESSAGE_light_extraExtraExtraLarge.png; sourceTree = "<group>"; };
 		53504B462A4C1FC700D6462A /* IMAGE_COMMENTS_dark_extraExtraExtraLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMAGE_COMMENTS_dark_extraExtraExtraLarge.png; sourceTree = "<group>"; };
@@ -379,8 +379,8 @@
 			children = (
 				530E0FBD29DEE32D0099E4CF /* Products */,
 				539AE6C429EB236800C98706 /* README.md */,
-				53419F3A29E6B6B7009868FA /* CI.xctestplan */,
-				5348BB1029E69C8C0010BBF1 /* EssentialFeed.xctestplan */,
+				53419F3A29E6B6B7009868FA /* CI_macOS.xctestplan */,
+				5348BB1029E69C8C0010BBF1 /* CI.xctestplan */,
 				530E0FBE29DEE32D0099E4CF /* EssentialFeed */,
 				530E0FCA29DEE32D0099E4CF /* EssentialFeedTests */,
 				53DECA2929E6A54E00187253 /* EssentialFeedAPIEndToEndTests */,
